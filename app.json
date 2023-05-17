@@ -1,8 +1,8 @@
 {
     "name": "RSS to Telegram Bot",
     "description": "A Telegram RSS bot that cares about your reading experience",
-    "logo": "https://raw.githubusercontent.com/Rongronggg9/RSS-to-Telegram-Bot/dev/docs/resources/RSStT_icon.svg",
-    "repository": "https://github.com/Rongronggg9/RSS-to-Telegram-Bot",
+    "logo": "https://raw.githubusercontent.com/Jv0id/RSS-to-Telegram-Bot/dev/docs/resources/RSStT_icon.svg",
+    "repository": "https://github.com/Jv0id/RSS-to-Telegram-Bot",
     "website": "https://t.me/RSStT_Channel",
     "keywords": [
         "python",
@@ -23,7 +23,7 @@
             "required": true
         },
         "TELEGRAPH_TOKEN": {
-            "description": "Telegraph API access token. Get it from https://api.telegra.ph/createAccount?short_name=RSStT&author_name=Generated%20by%20RSStT&author_url=https%3A%2F%2Fgithub.com%2FRongronggg9%2FRSS-to-Telegram-Bot",
+            "description": "Telegraph API access token. Get it from https://api.telegra.ph/createAccount?short_name=RSStT&author_name=Maintained%20by%20jp0id&author_url=https%3A%2F%2Ft.me%2Fjp0id",
             "required": false
         },
         "API_ID": {
