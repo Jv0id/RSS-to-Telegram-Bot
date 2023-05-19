@@ -23,7 +23,7 @@
 
 [telegram_api]: https://core.telegram.org/api/obtaining_api_id
 
-[telegraph_api]: https://api.telegra.ph/createAccount?short_name=RSStT&author_name=Generated%20by%20RSStT&author_url=https%3A%2F%2Fgithub.com%2FRongronggg9%2FRSS-to-Telegram-Bot
+[telegraph_api]: https://api.telegra.ph/createAccount?short_name=RSS&author_name=Generated%20by%20RSS&author_url=https%3A%2F%2Fgithub.com%2FJv0id%2FRSS-to-Telegram-Bot
 
 ### Network settings
 
@@ -43,18 +43,18 @@
 
 ### Misc settings
 
-| Key                  | Description                                                               | Example                                       | Default                                         |
-|----------------------|---------------------------------------------------------------------------|-----------------------------------------------|-------------------------------------------------|
-| `MULTIUSER`          | Enable multi-user feature or not?                                         | `0`                                           | `1`                                             |
-| `CRON_SECOND`        | Run the feed monitoring task at the n-th second of each minute? (0-59)    | `30`                                          | `0`                                             |
-| `IMG_RELAY_SERVER`   | Media relay server URL                                                    | `https://wsrv.nl/?url=`                       | `https://rsstt-img-relay.rongrong.workers.dev/` |
-| `IMAGES_WESERV_NL`   | https://github.com/weserv/images instance                                 | `https://t0.nl/`                              | `https://wsrv.nl/`                              |
-| `DATABASE_URL`       | Database URL [^7]                                                         | `postgres://user:pass@example.com:5432/table` | `sqlite://path/to/config/db.sqlite3`            |
-| `TABLE_TO_IMAGE`     | Convert tables to image (causing higher CPU load) or just drop them?      | `1`                                           | `0`                                             |
-| `MANAGER_PRIVILEGED` | Allow the bot manager to manipulate any users' subscriptions or not? [^8] | `1`                                           | `0`                                             |
-| `NO_UVLOOP`          | Never enable `uvloop` (even if it is found) or not?                       | `1`                                           | `0`                                             |
-| `MULTIPROCESSING`    | Enable multiprocessing (up to `min(3, CPU_COUNT)`) or not? [^9]           | `1`                                           | `0`                                             |
-| `DEBUG`              | Enable debug logging or not?                                              | `1`                                           | `0`                                             |
+| Key                  | Description                                                               | Example                                       | Default                                              |
+|----------------------|---------------------------------------------------------------------------|-----------------------------------------------|------------------------------------------------------|
+| `MULTIUSER`          | Enable multi-user feature or not?                                         | `0`                                           | `1`                                                  |
+| `CRON_SECOND`        | Run the feed monitoring task at the n-th second of each minute? (0-59)    | `30`                                          | `0`                                                  |
+| `IMG_RELAY_SERVER`   | Media relay server URL                                                    | `https://wsrv.nl/?url=`                       | `https://rsstt-img-relay.jiangpengisme.workers.dev/` |
+| `IMAGES_WESERV_NL`   | https://github.com/weserv/images instance                                 | `https://t0.nl/`                              | `https://wsrv.nl/`                                   |
+| `DATABASE_URL`       | Database URL [^7]                                                         | `postgres://user:pass@example.com:5432/table` | `sqlite://path/to/config/db.sqlite3`                 |
+| `TABLE_TO_IMAGE`     | Convert tables to image (causing higher CPU load) or just drop them?      | `1`                                           | `0`                                                  |
+| `MANAGER_PRIVILEGED` | Allow the bot manager to manipulate any users' subscriptions or not? [^8] | `1`                                           | `0`                                                  |
+| `NO_UVLOOP`          | Never enable `uvloop` (even if it is found) or not?                       | `1`                                           | `0`                                                  |
+| `MULTIPROCESSING`    | Enable multiprocessing (up to `min(3, CPU_COUNT)`) or not? [^9]           | `1`                                           | `0`                                                  |
+| `DEBUG`              | Enable debug logging or not?                                              | `1`                                           | `0`                                                  |
 
 ## Manager options
 
