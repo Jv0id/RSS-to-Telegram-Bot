@@ -5,9 +5,8 @@
 **关心你的阅读体验的 Telegram RSS 机器人**
 
 
-[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Jv0id/RSS-to-Telegram-Bot?logo=git&label=commit)](https://github.com/Jv0id/RSS-to-Telegram-Bot/commits)
+[![GitHub last commit (dev)](https://img.shields.io/github/last-commit/Jv0id/RSS-to-Telegram-Bot/dev?logo=github)](https://github.com/Jv0id/RSS-to-Telegram-Bot/commits/dev)
 [![Translating status](https://img.shields.io/weblate/progress/rss-to-telegram-bot?logo=weblate&color=informational)](https://hosted.weblate.org/engage/rss-to-telegram-bot/)
-[![Code quality](https://img.shields.io/codefactor/grade/github/Jv0id/RSS-to-Telegram-Bot?logo=codefactor)](https://www.codefactor.io/repository/github/Jv0id/rss-to-telegram-bot)
 [![GitHub stars](https://img.shields.io/github/stars/Jv0id/Rss-to-Telegram-Bot?style=social)](https://github.com/Jv0id/RSS-to-Telegram-Bot/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Jv0id/RSS-to-Telegram-Bot?style=social)](https://github.com/Jv0id/RSS-to-Telegram-Bot/fork)
 
