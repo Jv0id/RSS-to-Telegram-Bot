@@ -10,10 +10,9 @@
 
 ## Option 1: Docker Compose
 
-[![Docker Image Size (tag)](https://img.shields.io/docker/image-size/rongronggg9/rss-to-telegram/latest?logo=docker)](https://hub.docker.com/r/rongronggg9/rss-to-telegram)
-[![Build status (master)](https://img.shields.io/github/workflow/status/Rongronggg9/RSS-to-Telegram-Bot/Publish%20Docker%20image/master?label=build&logo=docker)](https://github.com/Rongronggg9/RSS-to-Telegram-Bot/actions/workflows/publish-docker-image.yml?query=branch%3Amaster)
-[![Build status (dev)](https://img.shields.io/github/workflow/status/Rongronggg9/RSS-to-Telegram-Bot/Publish%20Docker%20image/dev?label=build%20%28dev%29&logo=docker)](https://github.com/Rongronggg9/RSS-to-Telegram-Bot/actions/workflows/publish-docker-image.yml?query=branch%3Adev)
-[![Docker pulls](https://img.shields.io/docker/pulls/rongronggg9/rss-to-telegram?label=pulls&logo=docker&color=informational)](https://hub.docker.com/r/rongronggg9/rss-to-telegram)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/rsstt?logo=python&label=&labelColor=white)](https://www.python.org)
+[![Docker Image Size (tag)](https://img.shields.io/docker/image-size/rongronggg9/rss-to-telegram/latest?logo=docker)](https://hub.docker.com/r/jp0id/rss-to-telegram)
+[![Docker pulls](https://img.shields.io/docker/pulls/jp0id/rss-to-telegram?label=pulls&logo=docker&color=informational)](https://hub.docker.com/r/jp0id/rss-to-telegram)
 
 > An x86_64 (amd64) or arm64v8 (aarch64) machine is required. If you need a VPS, [Vultr (affiliate link, w/ 14-days-valid $100 trial credit)](https://www.vultr.com/?ref=8947246-8H) High Performance (Intel) NVMe SSD Cloud Servers (starting at $6/month) is recommended.
 
@@ -22,7 +21,7 @@
 ```sh
 mkdir rsstt
 cd rsstt
-wget https://raw.githubusercontent.com/Rongronggg9/RSS-to-Telegram-Bot/dev/docker-compose.yml.sample -O docker-compose.yml
+wget https://raw.githubusercontent.com/Jpv0id/RSS-to-Telegram-Bot/dev/docker-compose.yml.sample -O docker-compose.yml
 vi docker-compose.yml  # fill in env variables
 docker-compose up -d
 ```
@@ -79,7 +78,7 @@ _Please note that if you deploy RSStT without using the above buttons, you must 
 
 ### Update
 
-1. [Fork RSStT](https://github.com/Rongronggg9/RSS-to-Telegram-Bot/fork) to your GitHub account.
+1. [Fork RSStT](https://github.com/Jv0id/RSS-to-Telegram-Bot/fork) to your GitHub account.
 2. Use the instant deploy buttons above to deploy RSStT to Heroku.
 3. Switch the `Deployment method` to `GitHub` (`Deploy` tab -> `Deployment method`) and connect the app to your fork.
 4. Enable `Automatic deploys` (`Deploy` tab -> `Automatic deploys` -> `Enable Automatic Deploys`).
@@ -114,8 +113,6 @@ You know what to do. However, I cannot guarantee that the fonts can be recognize
 
 ### Option 4.1: Install from PyPI
 
-[![PyPI](https://img.shields.io/pypi/v/rsstt?logo=pypi&logoColor=white)](https://pypi.org/project/rsstt/)
-[![PyPI publish status](https://img.shields.io/github/workflow/status/Rongronggg9/RSS-to-Telegram-Bot/Publish%20to%20PyPI?label=publish&logo=pypi&logoColor=white)](https://github.com/Rongronggg9/RSS-to-Telegram-Bot/actions/workflows/publish-to-pypi.yml)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/rsstt?logo=pypi&logoColor=white)](https://pypi.org/project/rsstt/)
 [![PyPI - Implementation](https://img.shields.io/pypi/implementation/rsstt?logo=python)](https://www.python.org)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/rsstt?logo=python)](https://www.python.org)
@@ -137,15 +134,15 @@ python3 -m rsstt
 
 ### Option 4.2: Dirty run from source
 
-[![GitHub repo size](https://img.shields.io/github/repo-size/Rongronggg9/RSS-to-Telegram-Bot?logo=github)](https://github.com/Rongronggg9/RSS-to-Telegram-Bot/archive/refs/heads/dev.zip)
-[![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/Rongronggg9/RSS-to-Telegram-Bot?include_prereleases&sort=semver&logo=github)](https://github.com/Rongronggg9/RSS-to-Telegram-Bot/releases)
-[![GitHub last commit (dev)](https://img.shields.io/github/last-commit/Rongronggg9/RSS-to-Telegram-Bot/dev?logo=github)](https://github.com/Rongronggg9/RSS-to-Telegram-Bot/commits/dev)
-[![GitHub commits since latest release (by SemVer including pre-releases)](https://img.shields.io/github/commits-since/Rongronggg9/RSS-to-Telegram-Bot/latest?include_prereleases&sort=semver&logo=github)](https://github.com/Rongronggg9/RSS-to-Telegram-Bot/commits/dev)
+[![GitHub repo size](https://img.shields.io/github/repo-size/Jv0id/RSS-to-Telegram-Bot?logo=github)](https://github.com/Jv0id/RSS-to-Telegram-Bot/archive/refs/heads/dev.zip)
+[![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/Jv0id/RSS-to-Telegram-Bot?include_prereleases&sort=semver&logo=github)](https://github.com/Jv0id/RSS-to-Telegram-Bot/releases)
+[![GitHub last commit (dev)](https://img.shields.io/github/last-commit/Jv0id/RSS-to-Telegram-Bot/dev?logo=github)](https://github.com/Jv0id/RSS-to-Telegram-Bot/commits/dev)
+[![GitHub commits since latest release (by SemVer including pre-releases)](https://img.shields.io/github/commits-since/Jv0id/RSS-to-Telegram-Bot/latest?include_prereleases&sort=semver&logo=github)](https://github.com/Jv0id/RSS-to-Telegram-Bot/commits/dev)
 
 > Default config folder is `./config`, default `.env` path is `./.env` (placing it inside the config folder is also supported).
 
 ```sh
-git clone https://github.com/Rongronggg9/RSS-to-Telegram-Bot.git
+git clone https://github.com/Jv0id/RSS-to-Telegram-Bot.git
 cd RSS-to-Telegram-Bot
 pip3 install -r requirements.txt
 cp .env.example .env
