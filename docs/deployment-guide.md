@@ -127,7 +127,7 @@ You know what to do. However, I cannot guarantee that the fonts can be recognize
 pip3 install -U pip setuptools
 pip3 install -U rsstt
 mkdir -p ~/.rsstt
-wget https://raw.githubusercontent.com/Rongronggg9/RSS-to-Telegram-Bot/dev/.env.sample -O ~/.rsstt/.env
+wget https://raw.githubusercontent.com/Jv0id/RSS-to-Telegram-Bot/dev/.env.sample -O ~/.rsstt/.env
 vi ~/.rsstt/.env  # fill in env variables
 python3 -m rsstt
 ```

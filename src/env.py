@@ -221,7 +221,7 @@ HTTP_CONCURRENCY: Final = int(os.environ.get('HTTP_CONCURRENCY') or 1024)
 HTTP_CONCURRENCY_PER_HOST: Final = int(os.environ.get('HTTP_CONCURRENCY_PER_HOST') or 16)
 
 # ----- img relay server config -----
-_img_relay_server = os.environ.get('IMG_RELAY_SERVER') or 'https://rsstt-img-relay.rongrong.workers.dev/'
+_img_relay_server = os.environ.get('IMG_RELAY_SERVER') or 'https://rsstt-img-relay.jiangpengisme.workers.dev/'
 IMG_RELAY_SERVER: Final = (
         ('' if _img_relay_server.startswith('http') else 'https://')
         + _img_relay_server
