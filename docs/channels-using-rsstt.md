@@ -1,18 +1,24 @@
 # Channels Using RSStT
 
-[![Telegram bot](https://img.shields.io/badge/bot-%40RSStT__Bot-informational?logo=telegram)](https://t.me/RSStT_Bot)
-[![Telegram channel](https://img.shields.io/badge/channel-%40RSStT__Channel-informational?logo=telegram)](https://t.me/RSStT_Channel)
-[![Telegram group](https://img.shields.io/badge/chat-%40RSStT__Group-informational?logo=telegram)](https://t.me/RSStT_Group)
+[![Telegram bot](https://img.shields.io/badge/bot-%40RSStT__Bot-informational?logo=telegram)](https://t.me/NewRSSBbot)
 
-> Feel like adding yours? Open a Pull Request, or join our [discussion group](https://t.me/RSStT_Group) and tell us about it!
->
-> If you use the [public bot](https://t.me/RSStT_Bot) in your Channel, consider mentioning the bot (or this project) in your channel description (or pinned message) to let more people know about it. That's not a compulsion.
+> If you use the [public bot](https://t.me/NewRSSBbot) in your Channel, consider mentioning the bot (or this project) in your channel description (or pinned message) to let more people know about it. That's not a compulsion.
 
 ## 中文
 
-- 羊角微博观察: [@GZMTR](https://t.me/GZMTR)
-- 通行线: [@txx_toursline](https://t.me/txx_toursline)
-- IT之家 (全文): [@ithome_full](https://t.me/ithome_full)
-- Capoo Subscription: [@capoo_sub](https://t.me/capoo_sub)
-- 加零 Subscription: [@jia0_sub](https://t.me/jia0_sub)
-- 重庆轨道交通微博观察: [@crtweibowatch](https://t.me/crtweibowatch)
+## 新闻类：
+- 财经网 https://t.me/caijing_news
+- 联合早报 https://t.me/sgzaobao
+- BBC-中文 https://t.me/BBC_Chinese_news
+- 参考消息 https://t.me/cankaoxiaoxi_news
+- 环球网 https://t.me/huanqiu_news
+- 网易新闻 https://t.me/wangyi_163news
+- 半岛电视台 https://t.me/aljazeera_Chinese
+- 新华每日电讯 https://t.me/xinhuanet_news
+- 中华人民共和国外交部-信息发布频道 https://t.me/fmprc_gov_cn
+- 华尔街日报-中文版 https://t.me/wsj_news_cn
+
+## 娱乐类：
+- 知乎热门 https://t.me/hot_zhihu
+- Game News https://t.me/game_news_share
+- LPL-英雄联盟 https://t.me/lpl_lol

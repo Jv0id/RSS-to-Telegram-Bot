@@ -1,9 +1,9 @@
-# Please read https://github.com/Rongronggg9/RSS-to-Telegram-Bot/blob/master/docs/deployment-guide.md for more details.
+# Please read https://github.com/Jv0id/RSS-to-Telegram-Bot/blob/master/docs/deployment-guide.md for more details.
 version: '3.6'
 
 services:
   main:
-    image: rongronggg9/rss-to-telegram:dev  # stable image: rongronggg9/rss-to-telegram
+    image: jp0id/rss-to-telegram  # stable image: jp0id/rss-to-telegram
     container_name: rsstt  # need to be unique
     restart: unless-stopped
     volumes:
@@ -25,7 +25,7 @@ services:
         1a23b456c78de90f1a23b456c78de90f1a23b456c78de90f1a23b456c78d
 # ↑------ To disable sending via Telegraph, comment out this area ------↑ #
 
-# Please read https://github.com/Rongronggg9/RSS-to-Telegram-Bot/blob/master/docs/advanced-settings.md for more details.
+# Please read https://github.com/Jv0id/RSS-to-Telegram-Bot/blob/master/docs/advanced-settings.md for more details.
 # ↓------ Advanced settings ------↓ #
       #- MULTIUSER=0  # default: 1
       #- CRON_SECOND=30  # 0-59, default: 0
