@@ -27,4 +27,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository }}/rss-telegram-bot:latest
+          tags: ghcr.io/rss-to-telegram-bot/rss-telegram-bot:latest
