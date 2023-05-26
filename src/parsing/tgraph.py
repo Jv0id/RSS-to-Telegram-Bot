@@ -315,12 +315,8 @@ class TelegraphIfy:
         self.telegraph_title = self.title or 'Maintained by jp0id'
         self.telegraph_html_content = (soup.decode() +
                                        '<p>Maintained by '
-                                       '<a href="https://t.me/jp0id">jp0id</a>. '
-                                       'The copyright belongs to the original author.</p>'
-                                       # "If images cannot be loaded properly due to anti-hotlinking, "
-                                       # "please consider install "
-                                       # "<a href='https://greasyfork.org/scripts/432923'>this userscript</a>."
-                                       + (f'<p><a href="{self.link}">Source</a></p>' if self.link else ''))
+                                       '<a href="https://t.me/jp0id">jp0id</a>.</p>'
+                                       + (f'<p><a href="{self.link}">原文</a></p>' if self.link else ''))
 
     async def telegraph_ify(self):
         await self.task  # wait for the page to be fully created

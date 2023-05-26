@@ -6,12 +6,12 @@
 
 1. Turn to [@BotFather](https://t.me/BotFather), send `/newbot` create a new bot, then get its token (env variable: `TOKEN`). After that, send `/setinline`, select your bot, and reply with an inline placeholder you like to enable inline mode for your bot. For example, [@RSStT_Bot](https://t.me/RSStT_Bot) is using `Please input a command to continue...`.
 2. Turn to [@userinfobot](https://t.me/userinfobot) to get your user ID (env variable: `MANAGER`).
-3. [Get Telegraph API access tokens](https://api.telegra.ph/createAccount?short_name=RSStT&author_name=Generated%20by%20RSStT&author_url=https%3A%2F%2Fgithub.com%2FRongronggg9%2FRSS-to-Telegram-Bot) (env variable: `TELEGRAPH_TOKEN`). Refresh the page every time you get a new token. If you have a lot of subscriptions, make sure to get at least 5 tokens.
+3. [Get Telegraph API access tokens](https://api.telegra.ph/createAccount?short_name=RSStT&author_name=Generated%20by%20RSStT&author_url=https%3A%2F%2Fgithub.com%2Fjp0id%2FRSS-to-Telegram-Bot) (env variable: `TELEGRAPH_TOKEN`). Refresh the page every time you get a new token. If you have a lot of subscriptions, make sure to get at least 5 tokens.
 
 ## Option 1: Docker Compose
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/rsstt?logo=python&label=&labelColor=white)](https://www.python.org)
-[![Docker Image Size (tag)](https://img.shields.io/docker/image-size/rongronggg9/rss-to-telegram/latest?logo=docker)](https://hub.docker.com/r/jp0id/rss-to-telegram)
+[![Docker Image Size (tag)](https://img.shields.io/docker/image-size/Jv0id/rss-to-telegram/latest?logo=docker)](https://hub.docker.com/r/jp0id/rss-to-telegram)
 [![Docker pulls](https://img.shields.io/docker/pulls/jp0id/rss-to-telegram?label=pulls&logo=docker&color=informational)](https://hub.docker.com/r/jp0id/rss-to-telegram)
 
 > An x86_64 (amd64) or arm64v8 (aarch64) machine is required. If you need a VPS, [Vultr (affiliate link, w/ 14-days-valid $100 trial credit)](https://www.vultr.com/?ref=8947246-8H) High Performance (Intel) NVMe SSD Cloud Servers (starting at $6/month) is recommended.
@@ -72,9 +72,9 @@ _Please note that if you deploy RSStT without using the above buttons, you must 
 
 [heroku_button]: https://www.herokucdn.com/deploy/button.svg
 
-[heroku_master]: https://heroku.com/deploy?template=https%3A%2F%2Fgithub.com%2FRongronggg9%2FRSS-to-Telegram-Bot%2Ftree%2Fmaster
+[heroku_master]: https://heroku.com/deploy?template=https%3A%2F%2Fgithub.com%2FJv0id%2FRSS-to-Telegram-Bot%2Ftree%2Fmaster
 
-[heroku_dev]: https://heroku.com/deploy?template=https%3A%2F%2Fgithub.com%2FRongronggg9%2FRSS-to-Telegram-Bot%2Ftree%2Fdev
+[heroku_dev]: https://heroku.com/deploy?template=https%3A%2F%2Fgithub.com%2FJv0id%2FRSS-to-Telegram-Bot%2Ftree%2Fdev
 
 ### Update
 
