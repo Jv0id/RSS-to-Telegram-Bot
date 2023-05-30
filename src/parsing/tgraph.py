@@ -315,8 +315,8 @@ class TelegraphIfy:
         self.telegraph_title = self.title or 'Maintained by jp0id'
         self.telegraph_html_content = (soup.decode() +
                                        '<p>Maintained by '
-                                       '<a href="https://t.me/jp0id">jp0id</a>.</p>'
-                                       + (f'<p><a href="{self.link}">原文</a></p>' if self.link else ''))
+                                       '<a href="https://t.me/pm_JP_bot">jp0id</a>.</p>'
+                                       + (f'<p><a href="{self.link}">Source</a></p>' if self.link else ''))
 
     async def telegraph_ify(self):
         await self.task  # wait for the page to be fully created
