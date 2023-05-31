@@ -79,7 +79,7 @@ class Telegraph(aiograph.Telegraph):
                 if retry_after >= 60:
                     # create a now account if retry_after sucks
                     await self.create_account(short_name='jp0id', author_name='jp0id',
-                                              author_url='https://t.me/jp0id')
+                                              author_url='https://t.me/pm_JP_bot')
                     logger.warning(f'Wanna let me wait? No way! Created a new Telegraph account: {self.token}')
                 else:
                     await asyncio.sleep(retry_after)
@@ -103,14 +103,14 @@ class APIs:
                 if len(token) != 60:  # must be an invalid token
                     logger.warning('Telegraph API token may be invalid, create one instead.')
                     await account.create_account(short_name='jp0id', author_name='jp0id',
-                                                 author_url='https://t.me/jp0id')
+                                                 author_url='https://t.me/pm_JP_bot')
                 await account.get_account_info()
                 self._accounts.append(account)
             except aiograph.exceptions.TelegraphError as e:
                 logger.warning(f'Telegraph API token may be invalid, create one instead: {e}')
                 try:
                     await account.create_account(short_name='jp0id', author_name='jp0id',
-                                                 author_url='https://t.me/jp0id')
+                                                 author_url='https://t.me/pm_JP_bot')
                     self._accounts.append(account)
                 except Exception as e:
                     logger.warning(f'Cannot set up one of Telegraph accounts: {e}', exc_info=e)
@@ -310,13 +310,13 @@ class TelegraphIfy:
             self.telegraph_author_url = self.link or ''
         else:
             self.telegraph_author = 'Maintained by jp0id'
-            self.telegraph_author_url = 'https://t.me/jp0id'
+            self.telegraph_author_url = 'https://t.me/pm_JP_bot'
 
         self.telegraph_title = self.title or 'Maintained by jp0id'
         self.telegraph_html_content = (soup.decode() +
-                                       '<p>Maintained by '
-                                       '<a href="https://t.me/pm_JP_bot">jp0id</a>.</p>'
-                                       + (f'<p><a href="{self.link}">Source</a></p>' if self.link else ''))
+                                       '<p>--本文章由RSS抓取，版权归源站点所有。该服务由'
+                                       '<a href="https://t.me/pm_JP_bot">jp0id</a>维护。</p>'
+                                       + (f'<p><a href="{self.link}">查看原文</a></p>' if self.link else ''))
 
     async def telegraph_ify(self):
         await self.task  # wait for the page to be fully created
