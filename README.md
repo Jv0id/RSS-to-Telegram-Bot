@@ -10,7 +10,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/Jv0id/Rss-to-Telegram-Bot?style=social)](https://github.com/Jv0id/RSS-to-Telegram-Bot/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Jv0id/RSS-to-Telegram-Bot?style=social)](https://github.com/Jv0id/RSS-to-Telegram-Bot/fork)
 
-[![Telegram bot](https://img.shields.io/badge/bot-%40RSStT__Bot-229ed9?logo=telegram&style=for-the-badge)](https://t.me/NewRSSBbot)
+[![Telegram bot]([https://img.shields.io/badge/bot-%40RSStT__Bot-229ed9?logo=telegram&style=for-the-badge](https://cdn5.telegram-cdn.org/file/E030txwK1aBk6A569B_FJJvpXb0demMjcErrBjEgif6ObY8JmxGrQqiAhNRdYFLwn-mH0zAXYklQBH0BX3gX_IYNWUiaPejHI8s90wY7OGk_8D-yYtargknh33pGjGoCBQdz9JkwbLjLBYXt6RAAn7jvybo9JwaIS-wjKurgT5QhuL-0t_O52EWS3ECbE2BHazjhBXDeLtJFyVHTnXbDe_8OOhX5ZyFm-wzI6IOmK3TIMC8wTr0GVWsw65_3ZwXoWA8hnbqXqVc_ekfdK723WUL7ck7vGAiFhEG27iK5i35a2rIU-FgRFVrAtJKJyyEIgnGWAiurnduiVeKkq8LzXQ.jpg))](https://t.me/NewRSSBbot)
 
 |  [更新日志]  | [FAQ] |  [文档]  | [使用 RSS_BOT 的频道] |
 |:--------:|-------|:------:|:--------------:|
