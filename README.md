@@ -12,7 +12,7 @@
 
 [![Telegram bot](https://img.shields.io/badge/bot-%40RSStT__Bot-229ed9?logo=telegram&style=for-the-badge)](https://t.me/NewRSSBbot)
 
-|  [更新日志]  | [FAQ] |  [文档]  | [使用 RSStT 的频道] |
+|  [更新日志]  | [FAQ] |  [文档]  | [使用 RSS_BOT 的频道] |
 |:--------:|-------|:------:|:--------------:|
 
 [更新日志]: docs/CHANGELOG.zh.md
@@ -55,7 +55,7 @@
 [![Docker Image Size (tag)](https://img.shields.io/docker/image-size/jp0id/rss-to-telegram/latest?logo=docker)](https://hub.docker.com/r/jp0id/rss-to-telegram)
 [![Docker pulls](https://img.shields.io/docker/pulls/jp0id/rss-to-telegram?label=pulls&logo=docker&color=informational)](https://hub.docker.com/r/jp0id/rss-to-telegram)
 
-部署 RSStT 实例非常简单。最推荐的部署方式是 Docker Compose: 它适合几乎所有 VPS。[Railway.app](https://railway.app) (一个 PaaS 平台) 也得到了官方支持。您也可以使用 pip 从 PyPI (跟踪 `master` 分支) 或 TestPyPI (跟踪最新的 `dev` 分支) 安装 RSStT。对于开发人员或有经验的用户，从源代码直接运行也是一个选项。
+部署 RSS_BOT 实例非常简单。最推荐的部署方式是 Docker Compose: 它适合几乎所有 VPS。[Railway.app](https://railway.app) (一个 PaaS 平台) 也得到了官方支持。您也可以使用 pip 从 PyPI (跟踪 `master` 分支) 或 TestPyPI (跟踪最新的 `dev` 分支) 安装 RSS_BOT。对于开发人员或有经验的用户，从源代码直接运行也是一个选项。
 
 <a href="docs/deployment-guide.md#option-2-railwayapp"><img src="https://railway.app/button.svg" height="30" alt="Deploy on Railway"></a>
 
@@ -74,12 +74,12 @@
 [公共 bot](https://t.me/NewRSSBbot) 没有服务保障。我会尽我所能维护它，但不能保证它永远完美运作。同时，你应该遵循“公平使用”，避免订阅过多 RSS 源。  
 如果你在频道里使用[公共 bot](https://t.me/NewRSSBbot) ，请考虑在频道简介 (或置顶消息) 里提及这个 bot (或这个项目)，来让更多人了解本项目。这不是强制的。
 
-## 使用 RSStT 的频道
+## 使用 RSS_BOT 的频道
 
-想要预览 RSStT 发送的消息的模样吗？这里有一个[使用 RSStT 的频道列表](docs/channels-using-rsstt.md)
+想要预览 RSS_BOT 发送的消息的模样吗？这里有一个[使用 RSStT 的频道列表](docs/channels-using-rsstt.md)
 
 ## 许可证
 
 本项目根据 [AGPLv3](LICENSE) 授权。严禁闭源的分发或机器人托管。如果你修改了代码并分发或托管它，请确保任何可以使用你的 bot 的用户都可以获得源代码 (通过在 [`src/i18n/__init__.py`](src/i18n/__init__.py) 中编辑仓库 URL)。
 
-本仓库原是 [Rongronggg9/RSS-to-Telegram-Bot](https://github.com/Rongronggg9/RSS-to-Telegram-Bot) 的一个 fork。
+本仓库原是 [Rongronggg9/RSS-to-Telegram-Bot](https://github.com/Rongronggg9/RSS-to-Telegram-Bot) 的一个 fork。感谢Rongronggg9提供的源代码！
