@@ -21,7 +21,7 @@
 
 [文档]: docs
 
-[使用 RSStT 的频道]: docs/channels-using-rsstt.md
+[使用 RSS_BOT 的频道]: docs/channels-using-rsstt.md
 
 ## 亮点
 
