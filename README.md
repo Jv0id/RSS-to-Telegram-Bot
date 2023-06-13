@@ -1,4 +1,4 @@
-<a href="https://t.me/RSStT_Bot"><img width="150" height="150" align="left" style="float: left; margin: 0 10px 0 0;" alt="RSStT icon" src="docs/resources/RSStT_icon.svg"/><a/>
+<a href="https://t.me/NewRSSBbot"><img width="150" height="150" align="left" style="float: left; margin: 0 10px 0 0;" alt="RSStT icon" src="[docs/resources/RSStT_icon.svg](https://cdn5.telegram-cdn.org/file/E030txwK1aBk6A569B_FJJvpXb0demMjcErrBjEgif6ObY8JmxGrQqiAhNRdYFLwn-mH0zAXYklQBH0BX3gX_IYNWUiaPejHI8s90wY7OGk_8D-yYtargknh33pGjGoCBQdz9JkwbLjLBYXt6RAAn7jvybo9JwaIS-wjKurgT5QhuL-0t_O52EWS3ECbE2BHazjhBXDeLtJFyVHTnXbDe_8OOhX5ZyFm-wzI6IOmK3TIMC8wTr0GVWsw65_3ZwXoWA8hnbqXqVc_ekfdK723WUL7ck7vGAiFhEG27iK5i35a2rIU-FgRFVrAtJKJyyEIgnGWAiurnduiVeKkq8LzXQ.jpg)"/><a/>
 
 # [RSS to Telegram Bot](https://t.me/NewRSSBbot)
 
