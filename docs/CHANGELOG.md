@@ -72,11 +72,11 @@
 
 ## Custom format, new l10n, improved media fallback, and more (v2.1.0)
 
-Official public bot [@RSStT_Bot](https://t.me/RSStT_Bot) is always using the `dev` branch. If you are using it, you may have noticed the new features. Since new commands are added, please use `/lang` command once again and select your language to let the bot update your command list.
+Official public bot [@RSS_BOT](https://t.me/NewRSSBbot) is always using the `dev` branch. If you are using it, you may have noticed the new features. Since new commands are added, please use `/lang` command once again and select your language to let the bot update your command list.
 
 ### BREAKING CHANGES
 
-- Inline mode is now required to be enabled due to new custom settings. Go to [@BotFather](https://t.me/BotFather), send `/setinline`, select your bot, and reply with an inline placeholder you like. For example, [@RSStT_Bot](https://t.me/RSStT_Bot) is using `Please input a command to continue...`.
+- Inline mode is now required to be enabled due to new custom settings. Go to [@BotFather](https://t.me/BotFather), send `/setinline`, select your bot, and reply with an inline placeholder you like. For example, [@RSS_BOT](https://t.me/NewRSSBbot) is using `Please input a command to continue...`.
 
 ### Additions
 
@@ -132,7 +132,7 @@ Official public bot [@RSStT_Bot](https://t.me/RSStT_Bot) is always using the `de
 
 ## Multi-user, i18n, improved user-friendliness, and more (v2.0.0)
 
-Official public bot: [@RSStT_Bot](https://t.me/RSStT_Bot)
+Official public bot: [@RSS_BOT](https://t.me/NewRSSBbot)
 
 **This is a major release. It introduces some major breaking changes. You must migrate to the new version manually.**  
 **PLEASE READ THE [MIGRATION GUIDE](migration-guide-v2.md) BEFORE UPDATING!**
@@ -174,7 +174,7 @@ Official public bot: [@RSStT_Bot](https://t.me/RSStT_Bot)
 
 **This is a rushed release. It bumps the dependency `telethon` to the latest version. Please upgrade to this version immediately to avoid being unable to login due to the outdated dependency.**
 
-The bot is currently being actively developed on the `multiuser` branch but has not been merged back yet to avoid introducing breaking changes too early. If you would like to try the multi-user version, there is a public demo [@RSStT_Bot](https://t.me/RSStT_Bot).
+The bot is currently being actively developed on the `multiuser` branch but has not been merged back yet to avoid introducing breaking changes too early. If you would like to try the multi-user version, there is a public demo [@RSS_BOT](https://t.me/NewRSSBbot).
 
 ### Additions
 

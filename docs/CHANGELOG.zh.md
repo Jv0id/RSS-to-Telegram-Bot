@@ -72,11 +72,11 @@
 
 ## 自定义格式、新本地化、改进的媒体回落和更多 (v2.1.0)
 
-官方的公开 bot [@RSStT_Bot](https://t.me/RSStT_Bot) 一直使用 `dev` 分支。如果你正在使用它，你可能已经注意到新功能了。由于添加了新的命令，请使用 `/lang` 命令再一次选择你的语言，让 bot 更新你的命令列表。
+官方的公开 bot [@RSS_BOT](https://t.me/NewRSSBbot) 一直使用 `dev` 分支。如果你正在使用它，你可能已经注意到新功能了。由于添加了新的命令，请使用 `/lang` 命令再一次选择你的语言，让 bot 更新你的命令列表。
 
 ### 重大变更
 
-- 由于加入了新的自定义设置，现在需要启用 inline 模式。请到 [@BotFather](https://t.me/BotFather) ，发送 `/setinline`，选择你的 bot，并回复一个你喜欢的 inline 占位符。例如，[@RSStT_Bot](https://t.me/RSStT_Bot) 使用的是 `Please input a command to continue...`。
+- 由于加入了新的自定义设置，现在需要启用 inline 模式。请到 [@BotFather](https://t.me/BotFather) ，发送 `/setinline`，选择你的 bot，并回复一个你喜欢的 inline 占位符。例如，[@RSS_BOT](https://t.me/NewRSSBbot) 使用的是 `Please input a command to continue...`。
 
 ### 新特性
 
@@ -130,7 +130,7 @@
 
 ## 多用户、国际化、改进的用户友好性和更多 (v2.0.0)
 
-官方的公开 bot: [@RSStT_Bot](https://t.me/RSStT_Bot)
+官方的公开 bot: [@RSS_BOT](https://t.me/NewRSSBbot)
 
 **这是一个重大的发布。它引入了一些重大变更，因此迁移至新版本需要手动完成。**  
 **更新前请务必阅读[迁移指南](migration-guide-v2.zh.md)！**
@@ -172,7 +172,7 @@
 
 **这是一个仓促的发布。它将依赖 `telethon` 升级到了最新版本。请立即升级到这个版本以免由于依赖过时而无法登录。**
 
-机器人正在 `multiuser` 分支上被活跃开发，但尚未被合并回来，以免过早引入重大变更。如果你想要尝试多用户版本，这里有一个公开的 demo [@RSStT_Bot](https://t.me/RSStT_Bot) 。
+机器人正在 `multiuser` 分支上被活跃开发，但尚未被合并回来，以免过早引入重大变更。如果你想要尝试多用户版本，这里有一个公开的 demo [@RSS_BOT](https://t.me/NewRSSBbot) 。
 
 ### 新特性
 
