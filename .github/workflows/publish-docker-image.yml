@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - dev  
+      - detached-7-25
 
 jobs:
   build:
@@ -23,4 +23,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: jp0id/rss-to-telegram:latest
+        tags: jp0id/rss-to-telegram:detached
