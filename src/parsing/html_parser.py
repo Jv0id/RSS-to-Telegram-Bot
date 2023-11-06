@@ -125,7 +125,15 @@ class Parser:
             parent = soup.parent.name
             text = await self._parse_item(soup.children)
             if text:
-                return Text([Br(), text, Br()]) if parent != 'li' else text
+                if parent == 'li':
+                    return text
+                text_l = [text]
+                ps, ns = soup.previous_sibling, soup.next_sibling
+                if not (isinstance(ps, Tag) and ps.name == 'blockquote'):
+                    text_l.insert(0, Br())
+                if not (isinstance(ns, Tag) and ns.name == 'blockquote'):
+                    text_l.append(Br())
+                return Text(text_l) if len(text_l) > 1 else text
             return None
 
         if tag == 'blockquote':
@@ -135,7 +143,7 @@ class Parser:
             quote.strip()
             if quote.is_empty():
                 return None
-            return Text([Hr(), quote, Hr()])
+            return Blockquote(quote)
 
         if tag == 'q':
             quote = await self._parse_item(soup.children)
@@ -153,7 +161,17 @@ class Parser:
             return Pre(await self._parse_item(soup.children))
 
         if tag == 'code':
-            return Code(await self._parse_item(soup.children))
+            class_ = soup.get('class')
+            if isinstance(class_, list):
+                try:
+                    class_ = next(filter(lambda x: x.startswith('language-'), class_))
+                except StopIteration:
+                    class_ = None
+            elif class_ and isinstance(class_, str) and not class_.startswith('language-'):
+                class_ = f'language-{class_}'
+            else:
+                class_ = None
+            return Code(await self._parse_item(soup.children), param=class_)
 
         if tag == 'br':
             return Br()
