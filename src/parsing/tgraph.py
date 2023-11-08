@@ -313,8 +313,8 @@ class TelegraphIfy:
 
         self.telegraph_title = self.title or 'Maintained by jp0id'
         self.telegraph_html_content = (soup.decode() +
-                                       '<p>——————————————</p>'
-                                       '<p>Fetched by RSS-bot, the copyright belongs to the original site.</p>'
+                                       '<p>——————————————'
+                                       'The copyright belongs to the original author.</p>'
                                        + (f'<p><a href="{self.link}">Original</a></p>' if self.link else ''))
 
     async def telegraph_ify(self):
