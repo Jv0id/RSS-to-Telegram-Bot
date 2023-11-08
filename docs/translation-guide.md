@@ -44,7 +44,7 @@ https://hosted.weblate.org/projects/rss-to-telegram-bot/
 |----------------------------------------|-----------------------------------------|---------------------------|
 | [en] / English                         | [@Rongronggg9]                          | [![en_s]][en_w]           |
 | [zh-Hans] / Simplified Chinese / 简体中文  | [@Rongronggg9]                          | [![zh_Hans_s]][zh_Hans_w] |
-| [zh-Hant] / Traditional Chinese / 正體中文 | [@Rongronggg9]                          | [![zh_Hant_s]][zh_Hant_w] |
+| [zh-Hant] / Traditional Chinese / 繁体中文 | [@Rongronggg9]                          | [![zh_Hant_s]][zh_Hant_w] |
 | [yue] / Cantonese / 廣東話                | [@Rongronggg9]                          | [![yue_s]][yue_w]         |
 | [it] / Italian / Italiano              | [@Alfy] ([@AlfyT96])                    | [![it_s]][it_w]           |
 | [ca] / Catalan / Català                | [@maite.guix]                           | [![ca_s]][ca_w]           |
@@ -57,7 +57,7 @@ https://hosted.weblate.org/projects/rss-to-telegram-bot/
 | [pl] / Polish / Polski                 | [@marcin93]                             | [![pl_s]][pl_w]           |
 | [es] / Spanish / Español               | [@OscarCMD]                             | [![es_s]][es_w]           |
 | [ja] / Japanese / 日本語                  | [@Misaka13514]                          | [![ja_s]][ja_w]           |
-| [eu] / Basque / Euskara               | [@ionlizarazu]                             | [![eu_s]][eu_w]           |
+| [eu] / Basque / Euskara                | [@ionlizarazu]                             | [![eu_s]][eu_w]           |
 
 [i18n]: ../src/i18n
 
