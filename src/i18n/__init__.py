@@ -12,13 +12,13 @@ FALLBACK_LANGUAGE = istr('en')
 NO_FALLBACK_KEYS = {istr('iso_639_code')}
 
 REPO_TYPE = 'GitHub'
-REPO_URL = 'https://github.com/Rongronggg9/RSS-to-Telegram-Bot'
+REPO_URL = 'https://github.com/Jv0id/RSS-to-Telegram-Bot'
 
 NEED_PRE_FILL = {
     # istr('default_emoji_header_description'):
     #     ('↩',),
     istr('read_formatting_settings_guidebook_html'):
-        ('https://github.com/Rongronggg9/RSS-to-Telegram-Bot/blob/dev/docs/formatting-settings.md',),
+        ('https://github.com/Jv0id/RSS-to-Telegram-Bot/blob/dev/docs/formatting-settings.md',),
 }
 
 COMMANDS = ('sub', 'unsub', 'unsub_all', 'list', 'set', 'set_default', 'import', 'export', 'activate_subs',
