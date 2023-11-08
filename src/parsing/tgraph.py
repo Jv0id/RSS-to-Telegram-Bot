@@ -313,9 +313,9 @@ class TelegraphIfy:
 
         self.telegraph_title = self.title or 'Maintained by jp0id'
         self.telegraph_html_content = (soup.decode() +
-                                       '<p>--本文由RSS抓取，版权归源站所有。</p>'
-                                       '<p>--该服务由<a href="https://t.me/pm_JP_bot">jp0id</a>维护。</p>'
-                                       + (f'<p><a href="{self.link}">查看原文</a></p>' if self.link else ''))
+                                       '<p>——————————————</p>'
+                                       '<p>Fetched by RSS-bot, the copyright belongs to the original site.</p>'
+                                       + (f'<p><a href="{self.link}">Original</a></p>' if self.link else ''))
 
     async def telegraph_ify(self):
         await self.task  # wait for the page to be fully created
