@@ -11,7 +11,8 @@ from ipaddress import ip_address, ip_network
 from urllib.parse import urlparse
 from multidict import CIMultiDictProxy
 
-from .. import env, log, i18n
+from .. import env, log
+from ..i18n import i18n
 
 logger = log.getLogger('RSStT.web')
 PRIVATE_NETWORKS: Final = tuple(ip_network(ip_block) for ip_block in
@@ -34,6 +35,7 @@ class YummyCookieJar(aiohttp.abc.AbstractCookieJar):
     multimedia files.
     As a result, the cookie jar is mostly empty, and the overhead of CookieJar, which is expensive, is unnecessary.
     So it is expected that YummyCookieJar will seldom switch to CookieJar, acting as a DummyCookieJar most of the time.
+
     See also https://github.com/aio-libs/aiohttp/issues/7583
     """
 
