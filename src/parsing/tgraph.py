@@ -312,10 +312,11 @@ class TelegraphIfy:
             self.telegraph_author_url = 'https://t.me/pm_JP_bot'
 
         self.telegraph_title = self.title or 'Maintained by jp0id'
-        self.telegraph_html_content = (soup.decode() +
-                                       '<p>—————————————</p>'
-                                       '<p>The copyright belongs to the original author.</p>'
-                                       + (f'<p><a href="{self.link}">Original</a></p>' if self.link else ''))
+        self.telegraph_html_content = (soup.decode())
+        # self.telegraph_html_content = (soup.decode() +
+        #                                '<p>—————————————</p>'
+        #                                '<p>The copyright belongs to the original author.</p>'
+        #                                + (f'<p><a href="{self.link}">Original</a></p>' if self.link else ''))
 
     async def telegraph_ify(self):
         await self.task  # wait for the page to be fully created
