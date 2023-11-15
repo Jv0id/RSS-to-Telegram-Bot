@@ -1,40 +1,40 @@
 # telegram and telegraph
 cryptg==0.4.0
-telethon==1.32.0
+telethon==1.32.1
 aiographfix==0.2.2
 
 # feed parsing
 feedparser==6.0.10  # feedparser@git+https://github.com/Rongronggg9/feedparser.git@develop
 listparser[lxml]==0.19
-pillow==9.5.0
+pillow==10.1.0
 beautifulsoup4==4.12.2
 lxml==4.9.3
-rapidfuzz==3.2.0
+rapidfuzz==3.5.2
 emoji==2.8.0
-minify-html==0.10.8
-minify-html-onepass==0.10.8
-matplotlib==3.7.2
+minify-html==0.11.1
+minify-html-onepass==0.11.1
+matplotlib==3.8.1
 
 # db
-asyncpg==0.28.0
-tortoise-orm[accel]==0.19.3
+asyncpg==0.29.0
+tortoise-orm[accel]==0.20.0
 aerich==0.6.3
 
 # network
 aiohttp[speedups]==3.8.6
-aiohttp-socks==0.8.1
+aiohttp-socks==0.8.4
 aiohttp-retry==2.8.3
-python-socks[asyncio]==2.3.0
-dnspython[idna]==2.3.0
+python-socks[asyncio]==2.4.3
+dnspython[idna]==2.4.2
 url-normalize==1.4.3
 
 # utils
 colorlog==6.7.0
 APScheduler==3.10.4
-python-dotenv==0.21.0
+python-dotenv==1.0.0
 multidict==6.0.4
 asyncstdlib==3.10.9
-cachetools==5.3.1
+cachetools==5.3.2
 CJKwrap==2.2
 typing-extensions==4.8.0
-uvloop==0.17.0; sys_platform!='win32' and sys_platform!='cygwin' and sys_platform!='cli'
+uvloop==0.19.0; sys_platform!='win32' and sys_platform!='cygwin' and sys_platform!='cli'
