@@ -1,5 +1,85 @@
 # Changelog
 
+## Unreleased
+
+### Bug fixes
+
+- **"Remote" `/test` unavailable**: Fix a bug preventing the bot manager from using the `/test` command "remotely".
+
+## Significant performance improvement, native blockquote and syntax highlighting (v2.4.0)
+
+### BREAKING CHANGES
+
+- **Drop Python 3.7 & 3.8 support**: The minimum Python version requirement is now 3.9.
+
+### Highlights
+
+#### Performance enhancements
+
+- **Reuse SSL context**: Reuse SSL context as `aiohttp` does. This improves performance (reduce load average by ~40%) and reduces memory usage.
+- **Lazy CookieJar**: Lazy creating CookieJar until there is really a Cookie. This improves performance (reduce load average by ~15%) and reduces memory usage.
+
+### Additions
+
+- **Native blockquote**: `<blockquote>` is now rendered as a native Telegram blockquote rather than a text block wrapped with horizontal rules.
+- **Syntax highlighting**: `<pre>` is now rendered as a native Telegram code block with syntax highlighting, as long as the language is specified in the `class` attribute.
+
+### Enhancements
+
+- **Custom-title-aware OPML**: When importing and exporting OPML, the bot will try to distinguish if a feed is of a custom title, and preserve it if so.
+- **`/lang` and `/test` as "remote" commands**: `/lang` and `/test` are now recognized as "remote" commands, which means you can use them in the private chat to make the operation actually apply to the channel/group you've specified in the command. Note: `/test` is only available to the bot manager.
+- **`/user_info` UX enhancement**: `/user_info` now has a better UX. Note: `/user_info` is only available to the bot manager.
+- **Minor enhancements**: The Docker image is now based on Debian bookworm.
+
+### Bug fixes
+
+- **Unexpected feed migration**: Fix a bug causing the bot to migrate feeds to a new URL unexpectedly. More specifically, the bot will now only migrate a feed if a redirection is considered permanent (HTTP status code 301 or 308).
+- **WEBP sent with wrong color space**: Fix a bug causing WEBP images sent with a wrong color space.
+- **Incorrect OPML format**: Fix incorrect OPML format making some RSS readers unable to import the OPML file exported by the bot.
+- **Mistaken watchdog feed timing**: Fix a bug causing the watchdog to be feed at the wrong time.
+- **Uncaught errors**: Fix some uncaught errors causing messages failed to be sent.
+
+## Improved performance, subscription quantity limit, and more (v2.3.0)
+
+This is a long-awaited release. Nice to meet you again in the changelog! This is the last release that supports Python 3.7, and there will not be any patch version for the v2.3.x series. Any fixes will only be applied to the next release, which will bump the minimum Python version requirement to 3.9.
+
+### Performance enhancements
+
+- **Support for Python 3.11**: Released in 2022-10-24, Python 3.11 is [10–60% (on average 25%) faster](https://docs.python.org/3.11/whatsnew/3.11.html#faster-cpython) than Python 3.10. RSStT now supports Python 3.11 and the official Docker image is based on Python 3.11.
+- **CPU**: Decrease the load average by ~30% (depends on the usage scenario). Thanks to a dependency migration from pure Python `fuzzwuzz` to C-extension `rapidfuzz` and a lot of performance tuning.
+- **Memory**: (Docker image only) Reduce memory consumption and improve memory allocation performance by adopting `jemalloc`.
+- **Multicore CPU**: If the environment variable `MULTIPROCESSING` is set to `1`, multiple processes will be started. The number of processes is equal to the cores of CPU, but the maximum is 3. One is the main process, the others (if any) are used to parse RSS feeds, etc. Note that it is only valid when there are more than 1 CPU core, otherwise only 1 process (main process) will be started. It may help improve the performance on multicore CPUs but consumes more memory. Usually you don't need to enable it. However, if there are tons of subscriptions or your VPS comes with multiple cores but the performance of each is poor, you may want to enable this feature.
+- **Bandwidth usage**: Work around an [upstream (`uvloop`) bug](https://github.com/MagicStack/uvloop/issues/471#issuecomment-1136536769) that causes the bot to use too much bandwidth. Compared to previous releases, it cuts down up to 75% bandwidth usage when `uvloop` enabled.
+- **Startup time**: Decrease the startup time by increasing the startup concurrency and putting some unimportant startup tasks into the background.
+- **Minor enhancements**: Some internal functions have been optimized to improve performance.
+
+### Additions
+
+#### Highlights
+
+- **Subscription quantity limit**: The maximum number of subscriptions per user is now configurable (default: unlimited). By using the `/set_option` command, you can set `user_sub_limit` and `channel_or_group_sub_limit`. To check or set the limit of a specific user/channel/group, use the `/user_info` command.
+- **Monitor watchdog**: A watchdog has been implemented to check if the feed monitor is properly running. If not, the watchdog will exit the bot. Docker, Railway or Heroku will have it automatically restarted.
+
+#### Other additions
+
+- **Leave chat if been banned**: If the bot has not the permission to send messages in a channel/group, it will leave the chat.
+- **`<q>` tag as quotation marks**: A `<q>` tag is now converted to quotation marks (`<q>I am a quote,</q> said Q.` -> `“I am a quote,” said Q.`).
+- **New l10n**: Multiple translations have been added.
+
+### Enhancements & bug fixes
+
+- **Accept 4-char usernames**: You can now use the 4-char username of your channel/group in "remote" commands.
+- **Ignore inline query header in commands**: Formerly, if the bot is not properly set up as an inline bot, commands would be sent with an inline query header (`@bot_username`), causing the bot not to respond. Now the bot will ignore the inline query header and respond to commands correctly.
+- **Skip monitoring tasks if flood waiting**: If the bot is unable to send messages to all subscribers of a feed due to rate limit, it will skip the monitoring task for that feed once.
+- **Exit gracefully**: If the bot receives SIGINT or SIGTERM, it will exit gracefully by closing the database connections first. Formerly, unclosed database connections would block the bot from exiting.
+- **Encoding detection**: Fix a bug resulting in incorrect encoding detection for some feeds.
+- **Drop `sr-only` elements**: Drop `sr-only` elements from the RSS feed. They are only for screen readers and should not be rendered.
+- **Fix mistaken command regex**: Fix some mistaken command regexes preventing the bot from responding commands correctly.
+
+### Minor bug fixes & changes
+
+More unmentioned minor bugs have been fixed in the release. The changelog does not include all the changes. For more details, please refer to the [compare view](https://github.com/Rongronggg9/RSS-to-Telegram-Bot/compare/v2.2.1...v2.3.0).
+
 ## Published to PyPI, HTML table converter, and more (v2.2.1)
 
 ### Additions
@@ -9,7 +89,7 @@
 - **Published to PyPI**: RSStT is now available on [PyPI](https://pypi.org/project/rsstt/). You may install it with `pip install rsstt`. For more details, refer to the [Deployment Guide](deployment-guide.md).
 - **HTML table converter**: An HTML table converter has been implemented to convert HTML tables to images. It requires the environment variable `TABLE_TO_IMAGE` to be set to `1`, and CJK fonts to be installed. Please do note that the converter is not perfect, cannot handle rich-text formatting, may not work for all HTML tables, and can potentially lead to a higher performance cost and longer processing time.
 
-### Other additions
+#### Other additions
 
 - **New l10n**: The Indonesian (`id`, Bahasa Indonesia) translation has been added.
 - **Add `.env.sample`**: A sample `.env` file has been added.
@@ -72,11 +152,11 @@
 
 ## Custom format, new l10n, improved media fallback, and more (v2.1.0)
 
-Official public bot [@RSS_BOT](https://t.me/NewRSSBbot) is always using the `dev` branch. If you are using it, you may have noticed the new features. Since new commands are added, please use `/lang` command once again and select your language to let the bot update your command list.
+Official public bot [@RSStT_Bot](https://t.me/RSStT_Bot) is always using the `dev` branch. If you are using it, you may have noticed the new features. Since new commands are added, please use `/lang` command once again and select your language to let the bot update your command list.
 
 ### BREAKING CHANGES
 
-- Inline mode is now required to be enabled due to new custom settings. Go to [@BotFather](https://t.me/BotFather), send `/setinline`, select your bot, and reply with an inline placeholder you like. For example, [@RSS_BOT](https://t.me/NewRSSBbot) is using `Please input a command to continue...`.
+- Inline mode is now required to be enabled due to new custom settings. Go to [@BotFather](https://t.me/BotFather), send `/setinline`, select your bot, and reply with an inline placeholder you like. For example, [@RSStT_Bot](https://t.me/RSStT_Bot) is using `Please input a command to continue...`.
 
 ### Additions
 
@@ -132,7 +212,7 @@ Official public bot [@RSS_BOT](https://t.me/NewRSSBbot) is always using the `dev
 
 ## Multi-user, i18n, improved user-friendliness, and more (v2.0.0)
 
-Official public bot: [@RSS_BOT](https://t.me/NewRSSBbot)
+Official public bot: [@RSStT_Bot](https://t.me/RSStT_Bot)
 
 **This is a major release. It introduces some major breaking changes. You must migrate to the new version manually.**  
 **PLEASE READ THE [MIGRATION GUIDE](migration-guide-v2.md) BEFORE UPDATING!**
@@ -174,7 +254,7 @@ Official public bot: [@RSS_BOT](https://t.me/NewRSSBbot)
 
 **This is a rushed release. It bumps the dependency `telethon` to the latest version. Please upgrade to this version immediately to avoid being unable to login due to the outdated dependency.**
 
-The bot is currently being actively developed on the `multiuser` branch but has not been merged back yet to avoid introducing breaking changes too early. If you would like to try the multi-user version, there is a public demo [@RSS_BOT](https://t.me/NewRSSBbot).
+The bot is currently being actively developed on the `multiuser` branch but has not been merged back yet to avoid introducing breaking changes too early. If you would like to try the multi-user version, there is a public demo [@RSStT_Bot](https://t.me/RSStT_Bot).
 
 ### Additions
 
