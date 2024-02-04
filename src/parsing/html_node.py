@@ -42,7 +42,7 @@ class Text:
             if deeper:
                 self.content.strip()
             return
-            # listed
+        # listed
         while strip_l and self.content and type(self.content[0]) is Br:
             self.content.pop(0)
         while strip_r and self.content and type(self.content[-1]) is Br:

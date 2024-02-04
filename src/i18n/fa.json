@@ -1,35 +1,35 @@
 {
     "l10n_info": {
-        "lang_code": "de",
-        "iso_639_code": "de",
-        "language_name": "German",
-        "lang_native_name": "Deutsch",
-        "select_lang_prompt": "Bitte wählen Sie eine Sprache.",
-        "welcome_prompt": "Willkommen zu RSS to Telegram Bot.",
-        "rsstt_slogan": "RSS to Telegram Bot, ein Telegram RSS bot, dem deine Leseerfahrung wichtig ist."
+        "lang_code": "fa",
+        "iso_639_code": "fa",
+        "language_name": "فارسی",
+        "lang_native_name": "فارسی",
+        "select_lang_prompt": "لطفا زبان خود را انتخاب کنید.",
+        "welcome_prompt": "به ربات RSS to Telegram خوش آمدید.",
+        "rsstt_slogan": ""
     },
     "l10n_sub_status": {
-        "no_subscription": "Du hast keine Abonnements",
-        "already_subscribed": "Bereits abboniert",
-        "subscription_not_exist": "Abonnement existiert nicht"
+        "no_subscription": "شما هیچ اشتراکی ندارید",
+        "already_subscribed": "اشتراک دارید",
+        "subscription_not_exist": "اشتراک معتبر نیست"
     },
     "l10n_error_reasons": {
-        "feed_invalid": "RSS feed ungültig",
-        "url_invalid": "URL ungültig",
-        "network_error": "Netzwerkfehler",
-        "internal_error": "Interner Fehler",
-        "status_code_error": "HTTP Statuscode Fehler",
-        "uncaught_internal_error": "Unbekannter interner Fehler",
-        "operation_timeout_error": "Zeitüberschreitung der Aufgabe",
-        "action_invalid": "Ungültige Aktion",
-        "sub_limit_reached": "Grenze der Abonnement-Anzahl erreicht",
-        "flood_wait_prompt": "Sie haben das Anfragenlimit von Telegram überschritten. Bitte verlangsamen Sie die Anfragen.",
-        "edit_conflict_prompt": "Ihre Aufgaben stehen im Konflikt aufgrund zu häufiger Anfragen. Bitte verlangsamen Sie die Anfragen.",
-        "callback_already_running_prompt": "Ein Befehl wird bereits ausgeführt. Bitte erneut Versuchen, sobald der vorherige Befehl abgeschlossen ist.",
-        "message_too_long_prompt": "Der Befehl sollte erfolgreich ausgeführt sein, aber die Antwortnachricht ist zu lang zum senden."
+        "feed_invalid": "خوراک RSS معتبر نیست",
+        "url_invalid": "URL معتبر نیست",
+        "network_error": "خطا در شبکه",
+        "internal_error": "خطای داخلی",
+        "status_code_error": "خطا در وضعیت HTTP",
+        "uncaught_internal_error": "خطای کشف نشده",
+        "operation_timeout_error": "پایان زمان عملیات",
+        "action_invalid": "اقدام نامعتبر",
+        "sub_limit_reached": "مقدار اشتراک در حال رسیدن به محدودیت‌ها است",
+        "flood_wait_prompt": "",
+        "edit_conflict_prompt": "",
+        "callback_already_running_prompt": "",
+        "message_too_long_prompt": ""
     },
     "l10n_permission_denied_reasons": {
-        "channel_or_group_not_found": "Der Kanal / die Gruppe wurde nicht gefunden.",
+        "channel_or_group_not_found": "",
         "permission_denied_no_permission": "",
         "permission_denied_not_bot_manager": "",
         "permission_denied_not_chat_admin": "",
@@ -55,7 +55,7 @@
         "processing": "",
         "canceled_by_user": "",
         "n_subscriptions_in_total": "",
-        "other_settings_button": "",
+        "other_settings_button": "سایر تنظیمات …",
         "user": "",
         "channel": "",
         "group": ""

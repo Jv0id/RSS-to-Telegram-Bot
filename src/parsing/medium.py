@@ -1030,7 +1030,7 @@ def construct_weserv_url_convert_to_2560(url: str) -> str:
         # See also:
         # https://robson.plus/white-noise-image-generator/
         # https://fotoforensics.com/tutorial-estq.php
-        quality=85,
+        quality=89,
         without_enlargement=True
     )
 
@@ -1057,6 +1057,7 @@ def insert_image_relay_into_weserv_url(url: str) -> Optional[str]:
         return None  # already relayed
     return HEAD_IMAGES_WESERV_NL_URL_RELAYED + url[LEN_HEAD_IMAGES_WESERV_NL_URL:]
 
+
 async def get_medium_info_via_weserv(url: str) -> Optional[tuple[int, int, int, Optional[str]]]:
     url = construct_weserv_url(url, output_format='json')
     res = await web.get_medium_info_via_weserv(url)
@@ -1065,7 +1066,6 @@ async def get_medium_info_via_weserv(url: str) -> Optional[tuple[int, int, int, 
     url = insert_image_relay_into_weserv_url(url)
     if url:
         return await web.get_medium_info_via_weserv(url)
-
 
 
 async def detect_image_dimension_via_weserv(url: str) -> tuple[int, int]:

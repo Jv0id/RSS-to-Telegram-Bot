@@ -14,7 +14,7 @@
 
 ### **Q**: How is the performance of the bot?
 
-**A**: The bot is designed to be asynchronous, so it is lightweight and fast. Even if there are over 6000 feeds, the bot can still run on a single core VPS, with an incredibly low load average (~0.2) and approximate 350MB memory usage. The bot can still work fine in such a condition and its stability and usability will not be degraded.
+**A**: The bot is designed to be asynchronous, so it is lightweight and fast. Even if there are over 6000 feeds, the bot can still run on a single core VPS, with an incredibly low load average (~0.2) and approximate 350MB memory usage. The bot can still work fine in such a condition and its stability and usability will not be degraded. 
 
 ### **Q**: It appears to have a slight memory leak problem...
 

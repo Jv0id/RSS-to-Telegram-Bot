@@ -54,7 +54,6 @@ def calculate_update(old_hashes: Optional[Sequence[str]], entries: Sequence[dict
     return new_hashes, updated_entries
 
 
-
 def filter_urls(urls: Optional[Iterable[str]]) -> tuple[str, ...]:
     return tuple(filter(lambda x: x.startswith('http://') or x.startswith('https://'), urls)) if urls else tuple()
 
@@ -324,7 +323,7 @@ async def check_sub_limit(user_id: int, force_count_current: bool = False) -> tu
     curr_count: int = -1
     limit: int = -1
     is_default_limit: bool = False
-    if user_id != env.MANAGER:
+    if user_id not in env.MANAGER:
         # noinspection PyTypeChecker
         limit: Optional[int] = await db.User.get_or_none(id=user_id).values_list('sub_limit', flat=True)
         if limit is None:
