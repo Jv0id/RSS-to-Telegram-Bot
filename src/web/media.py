@@ -25,6 +25,7 @@ PIL.ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 LRU_CACHE_MAXSIZE: Final = 1024
 
+
 async def __medium_info_callback(response: aiohttp.ClientResponse) -> tuple[int, int]:
     content_type = response.headers.get('Content-Type', '').lower()
     content_length = int(response.headers.get('Content-Length', INFINITY))
@@ -248,6 +249,7 @@ async def detect_image_dimension_via_weserv(url: str) -> tuple[int, int]:
         return -1, -1
     _, width, height, _ = res
     return width, height
+
 
 IMG_RELAY_SERVER_UPLOAD_TO_TELEGRAPH_PATH = 'upload_graph/'
 

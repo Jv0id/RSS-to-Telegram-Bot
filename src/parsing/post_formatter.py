@@ -14,7 +14,6 @@ from .html_node import *
 from .medium import Media, AbstractMedium, Image, Video, Audio, File, Animation
 from ..web.media import construct_weserv_url_convert_to_2560
 
-
 AUTO: Final = 0
 DISABLE: Final = -1
 FORCE_DISPLAY: Final = 1
