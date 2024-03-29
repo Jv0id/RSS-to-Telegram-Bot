@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Highlights
+
+- **Upload media to Telegraph**: When generating Telegraph posts, images as well as videos will be uploaded to Telegraph. This is to solve anti-hotlinking issues and improve the load performance of posts. This feature depends on the latest version of the media relay server ([Rongronggg9/rsstt-img-relay](https://github.com/Rongronggg9/rsstt-img-relay)). Those images and videos that are too large to be uploaded will still be proxied by `wsrv.nl` (environment variable `IMAGES_WESERV_NL`) or media relay server (environment variable `IMG_RELAY_SERVER`). Thanks [#431](https://github.com/Rongronggg9/RSS-to-Telegram-Bot/pull/431) for inspiration.
+
 ### Addition
 
 - **Multiple managers**: The environment variable `MANAGER` now accepts a single user ID as well as a list separated by `;`, `,`, `(space)`, `(linebreak)`, or `(tab)`. Each user in the list will be able to manage the bot **equally**.
@@ -11,10 +15,12 @@
 
 - **Strip whitespaces in `<li>`**: Strip whitespaces (including linebreaks) in `<li>` (list item) to improve readability. Only the leading and trailing whitespaces (including linebreaks) are stripped.
 - **Only set "force reply" in groups**: Only set `ReplyKeyboardForceReply` to `True` in groups. Previously, it was also set in private chats. See also "Bug fixes" below.
+- **Minor refactor**: Some internal functions have been refactored to improve readability and maintainability.
 
 ### Bug fixes
 
 - **(`/sub`) "force reply" not cleared**: Both `/sub` and `/import` set `ReplyKeyboardForceReply` to `True` to force the user to reply to the bot. However, due to a bug of Telegram, it keeps effective even if the user has made a reply, making the reply bar always reappear. Previously, a workaround has been applied to `/import` by deleting the prompt message containing `ReplyKeyboardForceReply` after the user has made a reply (see also [#170](https://github.com/Rongronggg9/RSS-to-Telegram-Bot/issues/170)). But `/sub` was forgotten at that time. Now the workaround has been applied to `/sub` too.
+- **"Remote" `/lang` unavailable**: Fix a bug preventing users from using the `/lang` command "remotely".
 
 ## v2.5.0: Responsiveness improvement, tiny enhancements and fixes
 
