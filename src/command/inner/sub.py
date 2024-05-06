@@ -14,7 +14,7 @@ from os import path
 from ... import db, web, env
 from ...aio_helper import run_async
 from ...i18n import i18n
-from .utils import update_interval, list_sub, get_http_last_modified, filter_urls, logger, escape_html, \
+from .utils import update_interval, list_sub, filter_urls, logger, escape_html, \
     check_sub_limit, calculate_update
 from ...parsing.utils import html_space_stripper
 
@@ -73,6 +73,9 @@ async def sub(user_id: int,
                 if feed:
                     await migrate_to_new_url(feed, feed_url)
 
+            wr = wf.web_response
+            assert wr is not None
+
             # need to use get_or_create because we've changed feed_url to the redirected one
             title = rss_d.feed.title
             title = html_space_stripper(title) if title else ''
@@ -81,10 +84,10 @@ async def sub(user_id: int,
                 feed.state = 1
                 feed.error_count = 0
                 feed.next_check_time = None
-                etag = wf.headers and wf.headers.get('ETag')
+                etag = wr.etag
                 if etag:
                     feed.etag = etag
-                feed.last_modified = get_http_last_modified(wf.headers)
+                feed.last_modified = wr.last_modified
                 feed.entry_hashes = list(calculate_update(old_hashes=None, entries=rss_d.entries)[0])
                 await feed.save()  # now we get the id
                 db.effective_utils.EffectiveTasks.update(feed.id)
@@ -92,18 +95,23 @@ async def sub(user_id: int,
         sub_title = sub_title if feed.title != sub_title else None
 
         if not _sub:  # create a new sub if needed
-            _sub, created_new_sub = await db.Sub.get_or_create(user_id=user_id, feed=feed,
-                                                               defaults={'title': sub_title if sub_title else None,
-                                                                         'interval': None,
-                                                                         'notify': -100,
-                                                                         'send_mode': -100,
-                                                                         'length_limit': -100,
-                                                                         'link_preview': -100,
-                                                                         'display_author': -100,
-                                                                         'display_via': -100,
-                                                                         'display_title': -100,
-                                                                         'style': -100,
-                                                                         'display_media': -100})
+            _sub, created_new_sub = await db.Sub.get_or_create(
+                user_id=user_id, feed=feed,
+                defaults={
+                    'title': sub_title if sub_title else None,
+                    'interval': None,
+                    'notify': -100,
+                    'send_mode': -100,
+                    'length_limit': -100,
+                    'link_preview': -100,
+                    'display_author': -100,
+                    'display_via': -100,
+                    'display_title': -100,
+                    'display_entry_tags': -100,
+                    'style': -100,
+                    'display_media': -100
+                }
+            )
 
         if not created_new_sub:
             if _sub.title == sub_title and _sub.state == 1:
