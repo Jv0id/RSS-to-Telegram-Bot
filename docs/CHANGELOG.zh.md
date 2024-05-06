@@ -1,6 +1,26 @@
 # 更新日志
 
-## 尚未发布
+## 未发布
+
+### 重大变更
+
+- **迁移到 `aerich` 0.7.2**：`aerich` (RSStT 的一个依赖项) 0.7.x 中引入的一个重大变更使 RSStT 长期以来无法升级它。已经作出了很多努力，所以迁移预期为无缝的，且不应该造成任何破坏。但是，建议在升级 RSStT 之前进行数据库备份。如果您因迁移而遇到任何问题，请提交错误报告。
+
+### 亮点
+
+- **来自文章 (源条目) 的 #hashtag**: 如果在 `/set` 或 `/set_default` 中启用，来自文章 (源条目) 的 hashtag，在与源的自定义 hashtag 合并后，将被添加到消息中。术语“来自文章的 hashtag”指的是 RSS `<item>` 或 Atom `<entry>` 中的 `<category>` 元素。此功能默认禁用。感谢 [@maooyer](https://github.com/maooyer) 在 [#449](https://github.com/Rongronggg9/RSS-to-Telegram-Bot/pull/449) 中作出的初次贡献。
+- **支持 Python 3.12**: 进行了一些小的修复以支持 Python 3.12。官方 Docker 镜像现在也基于 Python 3.12。
+- **使贡献更容易的辅助脚本**: 在进行更新数据库模型的贡献时，创建数据库迁移文件并不是一件容易的事。[scripts/aerich_helper.py](../scripts/aerich_helper.py) 是一个可以简化这个流程的辅助脚本。将 `--help` 传递给脚本以查看详细的使用指南。
+
+### 增强
+
+- **根据 RSSHub TTL 推迟监控**: 根据 RSSHub 生成的 feed 的 TTL (生存时间) 推迟监控。RSSHub 会缓存 feed 直到 TTL 过期，因此对 TTL 较长的 RSSHub feed 进行激进的监控是不必要的。这旨在减少 RSStT 实例以及 RSSHub 实例的负载。如果 TTL 不可用或小于 5 分钟，则不会应用延迟。考虑到 RSS TTL 被广泛误用的情况，并非由 RSSHub 生成的 feed 不受影响。
+- **根据 Cloudflare 缓存推迟监控**: 同上，但适用于由 Cloudflare 代理的 feed。如果 Cloudflare 代理一个 feed 但不缓存它，将不会对这样的 feed 应用延迟。
+- **更好地处理自定义 #hashtag**: 当设置自定义 hashtag 时，会将破坏 hashtag 的无效字符和标点符号替换为 `_` (下划线)。
+- **改进了监控日志**: 监控日志已经被改进，使其更加信息丰富和易于阅读。
+- **次要的重构**: 重构了一些内部函数以提高可读性和可维护性。
+
+## v2.6.0: 上传媒体到 Telegraph、管理增强
 
 ### 亮点
 

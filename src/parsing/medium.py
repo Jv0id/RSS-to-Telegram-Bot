@@ -253,8 +253,8 @@ class Medium(AbstractMedium):
     def __init__(self, urls: Union[str, list[str]], type_fallback_urls: Optional[Union[str, list[str]]] = None):
         super().__init__()
         urls = urls if isinstance(urls, list) else [urls]
-        # dedup, should not use a set because sequence is important
-        self.urls: list[str] = sorted(set(urls), key=urls.index)
+        # dedup while keeping the order
+        self.urls: list[str] = list(dict.fromkeys(urls))
         self.original_urls: tuple[str, ...] = tuple(self.urls)
         self.chosen_url: Optional[str] = self.urls[0]
         self._server_change_count: int = 0
@@ -877,7 +877,8 @@ class Media:
 
         link_nodes: list[Text] = []
         for medium, medium_and_type in zip(self._media, media_and_types):
-            if isinstance(medium_and_type, Exception):
+            # Since Python 3.8, asyncio.CancelledError has been a subclass of BaseException rather than Exception
+            if isinstance(medium_and_type, (Exception, asyncio.CancelledError)):
                 if type(medium_and_type) in UserBlockedErrors:  # user blocked, let it go
                     raise medium_and_type
                 logger.debug('Upload media failed:', exc_info=medium_and_type)

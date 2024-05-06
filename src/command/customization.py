@@ -56,6 +56,7 @@ async def callback_set(event: events.CallbackQuery.Event,
     display_author: -1=disable, 0=auto, 1=force display
     display_via: -2=completely disable, -1=disable but display link, 0=auto, 1=force display
     display_title: -1=disable, 0=auto, 1=force display
+    display_entry_tags: -1=disable, 1=force display
     style: 0=RSStT, 1=flowerss
     """
     chat_id = chat_id or event.chat_id
@@ -162,7 +163,7 @@ async def callback_reset(event: events.CallbackQuery.Event,
         sub.interval = None
         update_interval_flag = True
     sub.length_limit = sub.notify = sub.send_mode = sub.link_preview = sub.display_author = sub.display_media = \
-        sub.display_title = sub.display_via = sub.style = -100
+        sub.display_title = sub.display_entry_tags = sub.display_via = sub.style = -100
     await sub.save()
     if update_interval_flag:
         await inner.utils.update_interval(sub)
@@ -206,9 +207,9 @@ async def callback_reset_all(event: events.CallbackQuery.Event,
             tasks.append(inner.utils.update_interval(sub))
         sub.interval = None
         sub.length_limit = sub.notify = sub.send_mode = sub.link_preview = sub.display_author = sub.display_media = \
-            sub.display_title = sub.display_via = sub.style = -100
+            sub.display_title = sub.display_entry_tags = sub.display_via = sub.style = -100
     await db.Sub.bulk_update(subs, ('interval', 'length_limit', 'notify', 'send_mode', 'link_preview', 'display_author',
-                                    'display_media', 'display_title', 'display_via', 'style'))
+                                    'display_media', 'display_title', 'display_entry_tags', 'display_via', 'style'))
     for task in tasks:
         env.loop.create_task(task)
     await event.edit(i18n[lang]['reset_all_successful'])
@@ -399,16 +400,16 @@ async def cmd_set_hashtags(event: Union[events.NewMessage.Event, Message],
     if not hashtags and not sub.tags:
         await event.respond(i18n[lang]['cmd_set_hashtags_usage_prompt_html'], parse_mode='html')
         return
-    hashtags_str = ' '.join(hashtags) if hashtags else None
-    if hashtags_str and len(hashtags_str) > 255:
+    try:
+        await inner.customization.set_sub_hashtags(sub, hashtags)
+    except inner.customization.TooManyHashtagsError:
         await event.respond(i18n[lang]['set_hashtags_failure_too_many'])
         return
-    await inner.customization.set_sub_hashtags(sub, hashtags_str)
     await event.respond(
         (
                 ((i18n[lang]['set_hashtags_success_html'] + '\n'
-                  + f'<b>{inner.utils.construct_hashtags(hashtags)}</b>')
-                 if hashtags
+                  + f'<b>{inner.utils.construct_hashtags(sub.tags)}</b>')
+                 if sub.tags
                  else i18n[lang]['set_hashtags_success_cleared'])
                 + '\n\n' +
                 await inner.customization.get_sub_info(sub, lang=lang)
