@@ -273,10 +273,21 @@ def force_quit(*_):
     os.kill(os.getpid(), signal.SIGKILL)
 
 
-def main():
-    exit_code = 0
+def sig_handler(signum, *_, **__):
     try:
-        signal.signal(signal.SIGTERM, lambda *_, **__: exit())  # graceful exit handler
+        logger.warning(f'Received signal {signal.Signals(signum).name}')
+    except ValueError:
+        logger.warning(f'Received signal {signum}')
+    exit(128 + signum)
+
+
+def main():
+    # bot.disconnected usually means the bot is logged out due to a network error or Telegram DC degradation,
+    # so we should exit with a non-zero code to indicate an error.
+    # This aims to avoid confusion when running the bot in a container or as a service.
+    exit_code = 100
+    try:
+        signal.signal(signal.SIGTERM, sig_handler)  # graceful exit handler
 
         init()
 
@@ -284,6 +295,7 @@ def main():
 
         logger.info(
             f"RSS-to-Telegram-Bot ({', '.join(env.VERSION.split())}) started!\n"
+            f"SELF: {env.bot_peer.first_name} @{env.bot_peer.username} ({env.bot_peer.id})\n"  # bot has no last name
             f"MANAGER: {', '.join(map(str, env.MANAGER))}\n"
             f"ERROR_LOGGING_CHAT: {env.ERROR_LOGGING_CHAT}\n"
             f"T_PROXY (for Telegram): {env.TELEGRAM_PROXY or 'not set'}\n"
