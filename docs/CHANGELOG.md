@@ -2,6 +2,19 @@
 
 ## v2.7.0: #Hashtags from post, Python 3.12 support, and more
 
+### Enhancements
+
+- **Print Telegram user info of bot**: Print the bot's Telegram user info when the bot is started. This is to help bot managers to find the bot's username and user ID when deploying the bot.
+- **Minor refactor**: Some internal functions have been refactored to improve performance and maintainability.
+
+### Bug fixes
+
+- **Exit with 0 when disconnected**: If the bot was logged out due to a network error or Telegram DC degradation, it would exit with exit-code 0. This led to confusion when the bot was running in a container or as a service. Now the bot will exit with exit-code 100 when disconnected.
+- **Unable to handle completely empty posts**: Fix `AttributeError` caused by completely empty posts. They are ignored now.
+- **Minor bug fixes**
+
+## v2.7.0: #Hashtags from post, Python 3.12 support, and more
+
 ### BREAKING CHANGES
 
 - **Migrate to `aerich` 0.7.2**: A breaking change introduced in `aerich` (a dependency of RSStT) 0.7.x has prevented RSStT from upgrading it for a long time. A lot of effort has been made, so the migration is expected to be seamless and shouldn't break anything. However, it is encouraged to make a database backup before upgrading RSStT. If you encounter any issues due to the migration, please file a bug report.
@@ -55,7 +68,7 @@
 ### Bug fixes
 
 - **Stay in topic group even when the "General" topic is closed**: Now that topic groups are not fully supported, the bot can only send messages in the "General" topic. Previously, the bot would only send an error message to the bot manager if the "General" topic is closed. Now the bot will leave the topic group, without disturbing the bot manager, if the "General" topic is closed. This is a temporary limitation before topic groups are fully supported.
-- **v2.4.1 not released to PyPI**: Due to a previous mistake, v2.4.1 could not be released to PyPI. v2.5.0 fixes the mistake and is released to PyPI. 
+- **v2.4.1 not released to PyPI**: Due to a previous mistake, v2.4.1 could not be released to PyPI. v2.5.0 fixes the mistake and is released to PyPI.
 
 ## v2.4.1: Minor enhancements, bug fixes, and Happy New Year!
 
@@ -283,7 +296,7 @@ Official public bot [@RSStT_Bot](https://t.me/RSStT_Bot) is always using the `de
 
 Official public bot: [@RSStT_Bot](https://t.me/RSStT_Bot)
 
-**This is a major release. It introduces some major breaking changes. You must migrate to the new version manually.**  
+**This is a major release. It introduces some major breaking changes. You must migrate to the new version manually.**\
 **PLEASE READ THE [MIGRATION GUIDE](migration-guide-v2.md) BEFORE UPDATING!**
 
 ### BREAKING CHANGES

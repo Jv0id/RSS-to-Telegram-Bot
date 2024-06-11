@@ -9,7 +9,6 @@ if _version_info < (3, 9):
 from typing import Callable
 from typing_extensions import Final
 
-
 import copy
 import functools
 import itertools

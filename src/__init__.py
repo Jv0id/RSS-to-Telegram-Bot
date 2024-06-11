@@ -286,6 +286,7 @@ def main():
     # so we should exit with a non-zero code to indicate an error.
     # This aims to avoid confusion when running the bot in a container or as a service.
     exit_code = 100
+
     try:
         signal.signal(signal.SIGTERM, sig_handler)  # graceful exit handler
 
