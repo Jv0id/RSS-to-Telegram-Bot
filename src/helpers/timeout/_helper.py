@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Callable, Optional, Awaitable, Generic, TypeVar, Any
+from typing import Callable, Optional, Awaitable, Generic, TypeVar, Any, Union
 from typing_extensions import ParamSpec
 
 import asyncio
@@ -20,10 +20,10 @@ class BatchTimeout(AbstractAsyncContextManager, Generic[P, R]):
             timeout: float,
             loop: asyncio.AbstractEventLoop = None,
             on_success: Callable[[R, P], None] = noop,
-            on_canceled: Callable[[BaseException, P], None] = noop,
-            on_error: Callable[[BaseException, P], None] = noop,
-            on_timeout: Callable[[BaseException, P], None] = noop,
-            on_timeout_error: Callable[[BaseException, P], None] = noop,
+            on_canceled: Callable[[asyncio.CancelledError, P], None] = noop,
+            on_error: Callable[[Exception, P], None] = noop,
+            on_timeout: Callable[[asyncio.CancelledError, P], None] = noop,
+            on_timeout_error: Callable[[Union[asyncio.CancelledError, Exception], P], None] = noop,
     ):
         """
         A context manager aims to solve these issues:
@@ -119,16 +119,17 @@ class BatchTimeout(AbstractAsyncContextManager, Generic[P, R]):
         while task_params_map:
             task = await done_queue.get()  # wait for the next task to be done
             if task is None:
-                self._timeout_handle.cancel()  # the handle should be done, just in case
-                self._timeout_handle = None  # indicate that the timeout has been reached
+                # Oops, the timeout has been reached.
+                # The handle should be done, just in case.
+                self._timeout_handle.cancel()
+                # Indicate that the timeout has been reached so that _on_done() does nothing.
+                self._timeout_handle = None
                 break
             args, kwargs = task_params_map.pop(task)  # pop the subtask and retrieve the feed
             try:
-                # Here we use `await task` instead of `task.exception()` due to:
-                # 1. The divergence that Future.exception() **returns** exception or None if done but **raises**
-                # CancelledError if canceled causes huge inconvenience.
-                # 2. Ensure the traceback is complete.
-                on_success(await task, *args, **kwargs)
+                # The task is guaranteed to be done here since it is put into the queue by the done callback.
+                # Thus, no need to check `if task.done()` here.
+                on_success(task.result(), *args, **kwargs)
             except asyncio.CancelledError as e:
                 # Usually, this should not happen, but let's handle it for debugging purposes and prevent it from
                 # breaking the whole context manager.
@@ -138,7 +139,7 @@ class BatchTimeout(AbstractAsyncContextManager, Generic[P, R]):
             # Release references so that they can be garbage collected while waiting for the next task to be done.
             del task, args, kwargs
         else:
-            # All tasks are done before the timeout.
+            # All tasks are done before the timeout is reached.
             self._timeout_handle.cancel()
             self._timeout_handle = None
             return
@@ -148,13 +149,17 @@ class BatchTimeout(AbstractAsyncContextManager, Generic[P, R]):
         for task in task_params_map:
             # Cancel all remaining tasks together before awaiting any of them to ensure timely cancellation.
             task.cancel()
-            # There is a chance that some subtasks are done right after the timeout_handle.
-            # In such a case, these subtasks will not be canceled (cancelling a done task is a no-op), so...
+            # There could be several event loop iterations between `None` being put into the queue by the timeout_handle
+            # and being consumed above. It is a chance that some tasks are done during this period. In such a case,
+            # these tasks will not be canceled (cancelling a done task is a no-op), so...
 
         for task, (args, kwargs) in task_params_map.items():
             try:
-                # ...it may succeed...
+                # If the cancellation really occurs, several event loop iterations are needed to actually cancel
+                # the task, so we probably need to wait for the task to be canceled, preventing us from using
+                # `task.result()` directly.
                 on_success(await task, *args, **kwargs)
+                # ...it may succeed...
             except asyncio.CancelledError as e:
                 on_timeout(e, *args, **kwargs)
             except Exception as e:
