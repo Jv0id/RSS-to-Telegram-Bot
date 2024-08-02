@@ -1,3 +1,19 @@
+#  RSS to Telegram Bot
+#  Copyright (C) 2021-2024  Rongrong <i@rong.moe>
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+#
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 from __future__ import annotations
 from typing import Optional
 
@@ -13,13 +29,13 @@ FALLBACK_LANGUAGE = istr('en')
 NO_FALLBACK_KEYS = {istr('iso_639_code')}
 
 REPO_TYPE = 'GitHub'
-REPO_URL = 'https://github.com/Jv0id/RSS-to-Telegram-Bot'
+REPO_URL = 'https://github.com/Rongronggg9/RSS-to-Telegram-Bot'
 
 NEED_PRE_FILL = {
     # istr('default_emoji_header_description'):
     #     ('↩',),
     istr('read_formatting_settings_guidebook_html'):
-        ('https://github.com/Jv0id/RSS-to-Telegram-Bot/blob/dev/docs/formatting-settings.md',),
+        ('https://github.com/Rongronggg9/RSS-to-Telegram-Bot/blob/dev/docs/formatting-settings.md',),
 }
 
 COMMANDS = ('sub', 'unsub', 'unsub_all', 'list', 'set', 'set_default', 'import', 'export', 'activate_subs',

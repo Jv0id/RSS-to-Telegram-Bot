@@ -3,7 +3,7 @@
         "lang_code": "zh-Hant",
         "iso_639_code": "",
         "language_name": "Traditional Chinese",
-        "lang_native_name": "繁体中文",
+        "lang_native_name": "正體中文",
         "select_lang_prompt": "請選擇語言。",
         "welcome_prompt": "歡迎使用 RSS to Telegram Bot。",
         "rsstt_slogan": "RSS to Telegram Bot，關心您的閱讀體驗的 Telegram RSS 機器人。"

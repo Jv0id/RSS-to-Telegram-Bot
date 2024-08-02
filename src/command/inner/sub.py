@@ -1,3 +1,19 @@
+#  RSS to Telegram Bot
+#  Copyright (C) 2021-2024  Rongrong <i@rong.moe>
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+#
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 from __future__ import annotations
 from typing import Union, Optional, AnyStr
 from collections.abc import Sequence
@@ -16,7 +32,7 @@ from ...aio_helper import run_async
 from ...i18n import i18n
 from .utils import update_interval, list_sub, filter_urls, logger, escape_html, \
     check_sub_limit, calculate_update
-from ...parsing.utils import html_space_stripper
+from ...parsing.utils import ensure_plain
 
 FeedSnifferCache = TTLCache(maxsize=256, ttl=60 * 60 * 24)
 
@@ -78,7 +94,7 @@ async def sub(user_id: int,
 
             # need to use get_or_create because we've changed feed_url to the redirected one
             title = rss_d.feed.title
-            title = html_space_stripper(title) if title else ''
+            title = await ensure_plain(title) if title else ''
             feed, created_new_feed = await db.Feed.get_or_create(defaults={'title': title}, link=feed_url)
             if created_new_feed or feed.state == 0:
                 feed.state = 1
