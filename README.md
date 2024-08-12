@@ -12,7 +12,7 @@
 
 [![Telegram bot](https://img.shields.io/badge/bot-%40RSStT__Bot-229ed9?logo=telegram&style=for-the-badge)](https://t.me/NewRSSBbot)
 
-# 欢迎加入telegram 有声小说频道[https://t.me/youshenggushi] [![Telegram](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.swo.moe%2Fstats%2Ftelegram%2Fyoushenggushi&query=count&color=2CA5E0&label=Telegram&labelColor=282c34&logo=telegram&suffix=+members&cacheSeconds=3600)](https://t.me/youshenggushi)
+# 欢迎加入telegram [有声小说频道](https://t.me/youshenggushi) [![Telegram](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.swo.moe%2Fstats%2Ftelegram%2Fyoushenggushi&query=count&color=2CA5E0&label=Telegram&labelColor=282c34&logo=telegram&suffix=+members&cacheSeconds=3600)](https://t.me/youshenggushi)
 
 |  [更新日志]  | [FAQ] |  [文档]  | [使用 RSS_BOT 的频道] |
 |:--------:|-------|:------:|:--------------:|
