@@ -72,7 +72,7 @@ RUN \
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-FROM python:3.12-bookworm as app-builder
+FROM python:3.12-bookworm AS app-builder
 
 WORKDIR /app
 
@@ -102,7 +102,7 @@ RUN \
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-FROM python:3.12-slim-bookworm as app
+FROM python:3.12-slim-bookworm AS app
 
 WORKDIR /app
 

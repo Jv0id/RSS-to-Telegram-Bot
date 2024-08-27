@@ -8,33 +8,34 @@ feedparser==6.0.11  # feedparser@git+https://github.com/Rongronggg9/feedparser.g
 listparser[lxml]==0.20
 pillow==10.4.0
 beautifulsoup4==4.12.3
-lxml==5.2.2
-rapidfuzz==3.9.5
+lxml==5.3.0
+rapidfuzz==3.9.6
 emoji==2.12.1
 minify-html==0.15.0
 minify-html-onepass==0.15.0
-matplotlib==3.9.1
+matplotlib==3.9.2
 
 # db
 asyncpg==0.29.0
-tortoise-orm[accel]==0.21.5
+tortoise-orm[accel]==0.21.6
 aerich==0.7.2
 
 # network
-aiohttp[speedups]==3.10.1
+aiohttp[speedups]==3.10.5
 aiohttp-socks==0.9.0
 aiohttp-retry==2.8.3
-python-socks[asyncio]==2.5.0
+python-socks[asyncio]==2.5.1
 dnspython[idna]==2.6.1
 
 # utils
+yarl==1.9.4
 colorlog==6.8.2
 APScheduler==3.10.4
 python-dotenv==1.0.1
 multidict==6.0.5
 asyncstdlib==3.12.4
-cachetools==5.4.0
+cachetools==5.5.0
 CJKwrap==2.2
 typing-extensions==4.12.2
-uvloop==0.19.0; sys_platform!='win32' and sys_platform!='cygwin' and sys_platform!='cli'
-isal==1.6.1; platform_machine=='x86_64' or platform_machine=='AMD64' or platform_machine=='aarch64'
+uvloop==0.20.0; sys_platform!='win32' and sys_platform!='cygwin' and sys_platform!='cli'
+isal==1.7.0; platform_machine=='x86_64' or platform_machine=='AMD64' or platform_machine=='aarch64'

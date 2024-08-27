@@ -25,7 +25,7 @@ logger = log.getLogger('RSStT.redirect_server')
 
 
 async def redirect(_):
-    return web.HTTPFound('https://github.com/Rongronggg9/RSS-to-Telegram-Bot')
+    return web.HTTPFound('https://github.com/Jv0id/RSS-to-Telegram-Bot')
 
 
 app = web.Application()
