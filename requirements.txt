@@ -6,34 +6,35 @@ aiographfix==0.2.2
 # feed parsing
 feedparser==6.0.11  # feedparser@git+https://github.com/Rongronggg9/feedparser.git@develop
 listparser[lxml]==0.20
-pillow==10.4.0
+pillow==11.0.0
 beautifulsoup4==4.12.3
 lxml==5.3.0
-rapidfuzz==3.10.0
+rapidfuzz==3.10.1
 emoji==2.14.0
 minify-html==0.15.0
 minify-html-onepass==0.15.0
 matplotlib==3.9.2
 
 # db
-asyncpg==0.29.0
-tortoise-orm[accel]==0.21.6
+asyncpg==0.30.0
+tortoise-orm[accel]==0.21.7
 aerich==0.7.2
 
 # network
-aiohttp[speedups]==3.10.6
+aiohttp[speedups]==3.10.10
 aiohttp-socks==0.9.0
 aiohttp-retry==2.8.3
 python-socks[asyncio]==2.5.3
-dnspython[idna]==2.6.1
+dnspython[idna]==2.7.0
 
 # utils
-yarl==1.12.1
-colorlog==6.8.2
+yarl==1.17.1
+propcache==0.2.0
+colorlog==6.9.0
 APScheduler==3.10.4
 python-dotenv==1.0.1
 multidict==6.1.0
-asyncstdlib==3.12.5
+asyncstdlib==3.13.0
 cachetools==5.5.0
 CJKwrap==2.2
 typing-extensions==4.12.2

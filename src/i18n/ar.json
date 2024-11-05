@@ -20,7 +20,7 @@
         "internal_error": "خطأ داخلي",
         "status_code_error": "HTTP status code error",
         "uncaught_internal_error": "Uncaught internal error",
-        "operation_timeout_error": "Operation timeout",
+        "operation_timeout_error": "انتهى وقت العملية",
         "action_invalid": "الإجراء غير صحيح",
         "sub_limit_reached": "تم بلوغ الحد الأقصى لعدد الإشتراكات",
         "flood_wait_prompt": "أنت تقوم بالعديد من العمليات في وقت قصير لدرجة ان البوت قد تجاوز rate limit لـ Telegram. من فضلك تمهل.",
@@ -137,7 +137,9 @@
         "length_limit_only_effective_if_send_mode_auto": "يكون حد الطول ساريًا فقط عندما يكون وضع الإرسال تلقائيًا.",
         "display_media_only_effective_if_send_mode_auto_and_telegram": "لن يعرض وضع الإرسال الحالي أبدًا الوسائط في رسائل Telegram.",
         "use_user_default_button": "استخدم الإفتراضي",
-        "read_formatting_settings_guidebook_html": "<a href=\"%s\">اقرأ دليل إعدادات التنسيق هنا.</a>"
+        "read_formatting_settings_guidebook_html": "<a href=\"%s\">اقرأ دليل إعدادات التنسيق هنا.</a>",
+        "display_entry_tags_-1": "تعطيل",
+        "display_entry_tags_1": "تمكين"
     },
     "l10n_cmd_set_default": {
         "set_user_default_description": "قم بتعيين الإعدادات الافتراضية للاشتراكات.\n\nستعود إعدادات الاشتراك غير المضبوطة إلى الإعدادات الموجودة في هذه الصفحة. مفيد إذا كنت تريد تعيين نفس الإعدادات لمعظم اشتراكاتك.",
@@ -151,7 +153,7 @@
         "subscription_info": "معلومات الاشتراك",
         "feed_title": "عنوان Feed",
         "subscription_title": "عنوان مخصص",
-        "feed_url": "Feed URL",
+        "feed_url": "عنوان URL للتغذية",
         "hashtags": "وسوم",
         "default_emoji_header_description": "%s يعني أن الاشتراك يستخدم إعداداتك الافتراضية. يمكنك تغييرها باستخدام /set_default."
     },

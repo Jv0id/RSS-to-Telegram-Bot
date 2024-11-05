@@ -20,6 +20,7 @@ from collections.abc import Iterable
 
 import enum
 import asyncio
+import logging
 from datetime import datetime, timedelta, timezone
 from email.utils import format_datetime
 from collections import defaultdict
@@ -133,7 +134,8 @@ class Monitor(Singleton):
         handle_id = id(feeds)
         logger.debug(f'Start monitoring {feed_count} feeds (handle: {handle_id}): {description}')
 
-        _do_monitor_subtask: BatchTimeout[[db.Feed], None]
+        now = datetime.now(timezone.utc)
+        _do_monitor_subtask: BatchTimeout[[db.Feed, datetime], None]
         async with BatchTimeout[[db.Feed], None](
                 func=self._do_monitor_subtask,
                 timeout=TIMEOUT,
@@ -145,19 +147,20 @@ class Monitor(Singleton):
         ) as _do_monitor_subtask:
             for feed in feeds:
                 self._lock_feed_id(feed.id)
-                _do_monitor_subtask(feed, _task_name_suffix=feed.id)
-            # Release unnecessary references to db.Feed objects so that they can be garbage collected later.
-            del feed, feeds
+                _do_monitor_subtask(feed, now, _task_name_suffix=feed.id)
+            # It could take a long time waiting for all subtasks to finish or time out.
+            # Release unnecessary references to heavy objects so that they can be garbage collected ASAP.
+            del feed, feeds, now
 
         logger.debug(f'Finished monitoring {feed_count} feeds (handle: {handle_id}): {description}')
 
     _do_monitor_task_bg_sync = _do_monitor_task.bg_sync
 
-    async def _do_monitor_subtask(self, feed: db.Feed):
+    async def _do_monitor_subtask(self, feed: db.Feed, now: datetime):
         self._subtask_defer_map[feed.id] |= TaskState.IN_PROGRESS
         self._stat.start()
         try:
-            await self._do_monitor_a_feed(feed)
+            await self._do_monitor_a_feed(feed, now)
         finally:
             self._erase_state_for_feed_id(feed.id, TaskState.IN_PROGRESS)
             self._stat.finish()
@@ -236,15 +239,15 @@ class Monitor(Singleton):
             pos += count
         assert pos == feed_count
 
-    async def _do_monitor_a_feed(self, feed: db.Feed):
+    async def _do_monitor_a_feed(self, feed: db.Feed, now: datetime):
         """
         Monitor the update of a feed.
 
         :param feed: Feed object to be monitored
+        :param now: A datetime object representing the current time
         :return: None
         """
         stat = self._stat
-        now = datetime.now(timezone.utc)
         if feed.next_check_time and now < feed.next_check_time:
             stat.skipped()
             return  # skip this monitor task
@@ -269,9 +272,9 @@ class Monitor(Singleton):
         wf = await web.feed_get(feed.link, headers=headers, verbose=False)
         rss_d = wf.rss_d
 
-        no_error = True
+        new_error_count = 0
         new_next_check_time: Optional[datetime] = None  # clear next_check_time by default
-        feed_updated_fields = set()
+        feed_updated_fields: set[str] = set()
         try:
             if wf.status == 304:  # cached
                 logger.debug(f'Fetched (not updated, cached): {feed.link}')
@@ -279,22 +282,25 @@ class Monitor(Singleton):
                 return
 
             if rss_d is None:  # error occurred
-                no_error = False
-                feed.error_count += 1
-                feed_updated_fields.add('error_count')
-                if feed.error_count % 20 == 0:  # error_count is always > 0
-                    logger.warning(f'Fetch failed ({feed.error_count}th retry, {wf.error}): {feed.link}')
-                if feed.error_count >= 100:
-                    logger.error(f'Deactivated due to too many ({feed.error_count}) errors '
-                                 f'(current: {wf.error}): {feed.link}')
+                new_error_count = feed.error_count + 1
+                if new_error_count >= 100:
+                    logger.error(
+                        f'Deactivated due to too many ({new_error_count}) errors (current: {wf.error}): {feed.link}'
+                    )
                     await Notifier(feed=feed, subs=subs, reason=wf.error).notify_all()
                     stat.failed()
                     return
-                if feed.error_count >= 10:  # too much error, defer next check
+                if new_error_count >= 10:  # too much error, defer next check
                     interval = feed.interval or db.EffectiveOptions.default_interval
-                    if (next_check_interval := min(interval, 15) * min(feed.error_count // 10 + 1, 5)) > interval:
-                        new_next_check_time = now + timedelta(minutes=next_check_interval)
-                logger.debug(f'Fetched (failed, {feed.error_count}th retry, {wf.error}): {feed.link}')
+                    # Equals: interval * (2 ** exp), clamp to 1 day
+                    next_check_delay = min(interval << (new_error_count // 10), 1440)
+                    new_next_check_time = now + timedelta(minutes=next_check_delay)
+                logger.log(
+                    logging.WARNING
+                    if new_error_count % 20 == 0
+                    else logging.DEBUG,
+                    f'Fetch failed ({new_error_count}th retry, {wf.error}): {feed.link}',
+                )
                 stat.failed()
                 return
 
@@ -302,11 +308,12 @@ class Monitor(Singleton):
             assert wr is not None
             wr.now = now
 
-            if (etag := wr.etag) and etag != feed.etag:
+            # Update even when etag is None, allowing clearing etag when the server no longer sends it.
+            if (etag := wr.etag) != feed.etag:
                 feed.etag = etag
                 feed_updated_fields.add('etag')
 
-            new_next_check_time = _defer_next_check_as_per_server_side_cache(wf)
+            new_next_check_time = wf.calc_next_check_as_per_server_side_cache()
 
             if not rss_d.entries:  # empty
                 logger.debug(f'Fetched (not updated, empty): {feed.link}')
@@ -333,17 +340,20 @@ class Monitor(Singleton):
             feed.entry_hashes = list(islice(new_hashes, max(len(rss_d.entries) * 2, 100))) or None
             feed_updated_fields.update({'last_modified', 'entry_hashes'})
         finally:
-            if no_error:
-                if feed.error_count > 0:
-                    feed.error_count = 0
-                    feed_updated_fields.add('error_count')
-                if wf.url != feed.link:
-                    new_url_feed = await inner.sub.migrate_to_new_url(feed, wf.url)
-                    feed = new_url_feed if isinstance(new_url_feed, db.Feed) else feed
+            if feed.error_count != new_error_count:
+                feed.error_count = new_error_count
+                feed_updated_fields.add('error_count')
 
-            if new_next_check_time != feed.next_check_time:
+            if feed.next_check_time != new_next_check_time:
                 feed.next_check_time = new_next_check_time
                 feed_updated_fields.add('next_check_time')
+
+            if new_error_count == 0 and wf.url != feed.link:
+                new_url_feed = await inner.sub.migrate_to_new_url(feed, wf.url)
+                if isinstance(new_url_feed, db.Feed):
+                    feed = new_url_feed
+                    # Update has been done during the migration, skip it.
+                    feed_updated_fields.clear()
 
             if feed_updated_fields:
                 await feed.save(update_fields=feed_updated_fields)
@@ -352,32 +362,3 @@ class Monitor(Singleton):
         await Notifier(feed=feed, subs=subs, entries=updated_entries).notify_all()
         stat.updated()
         return
-
-
-def _defer_next_check_as_per_server_side_cache(wf: web.WebFeed) -> Optional[datetime]:
-    wr = wf.web_response
-    assert wr is not None
-    expires = wr.expires
-    now = wr.now
-
-    # defer next check as per Cloudflare cache
-    # https://developers.cloudflare.com/cache/concepts/cache-responses/
-    # https://developers.cloudflare.com/cache/how-to/edge-browser-cache-ttl/
-    if expires and wf.headers.get('cf-cache-status') in {'HIT', 'MISS', 'EXPIRED', 'REVALIDATED'} and expires > now:
-        return expires
-
-    # defer next check as per RSSHub TTL (or Cache-Control max-age)
-    # only apply when TTL > 5min,
-    # as it is the default value of RSSHub and disabling cache won't change it in some legacy versions
-    rss_d = wf.rss_d
-    if rss_d.feed.get('generator') == 'RSSHub' and (updated_str := rss_d.feed.get('updated')):
-        ttl_in_minute_str: str = rss_d.feed.get('ttl', '')
-        ttl_in_second = int(ttl_in_minute_str) * 60 if ttl_in_minute_str.isdecimal() else None
-        if ttl_in_second is None:
-            ttl_in_second = wr.max_age
-        if ttl_in_second and ttl_in_second > 300:
-            updated = web.utils.rfc_2822_8601_to_datetime(updated_str)
-            if updated and (next_check_time := updated + timedelta(seconds=ttl_in_second)) > now:
-                return next_check_time
-
-    return None

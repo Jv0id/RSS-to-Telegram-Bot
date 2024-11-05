@@ -27,36 +27,37 @@
 
 ### Network settings
 
-| Key                         | Description                                           | Example                        | Default                     |
-|-----------------------------|-------------------------------------------------------|--------------------------------|-----------------------------|
-| `T_PROXY`                   | Proxy used to connect to the Telegram API [^3]        | `socks5://172.17.0.1:1080`     |                             |
-| `R_PROXY`                   | Proxy used to fetch feeds [^3]                        | `socks5://172.17.0.1:1080`     |                             |
-| `PROXY_BYPASS_PRIVATE`      | Bypass proxy for private IPs or not?                  | `1`                            | `0`                         |
-| `PROXY_BYPASS_DOMAINS`      | Bypass proxy for listed domains                       | `example.com;example.net` [^1] |                             |
-| `USER_AGENT`                | User-Agent                                            | `Mozilla/5.0`                  | `RSStT/$VERSION RSS Reader` |
-| `IPV6_PRIOR`                | Enforce fetching feeds over IPv6 firstly or not? [^4] | `1`                            | `0`                         |
-| `TRAFFIC_SAVING`            | Enable network traffic saving mode or not? [^5]       | `1`                            | `0`                         |
-| `LAZY_MEDIA_VALIDATION`     | Let Telegram DC to validate media or not? [^6]        | `1`                            | `0`                         |
-| `HTTP_TIMEOUT`              | HTTP request timeout in seconds                       | `60`                           | `12`                        |
-| `HTTP_CONCURRENCY`          | HTTP request concurrency overall (0=unlimited)        | `0`                            | `1024`                      |
-| `HTTP_CONCURRENCY_PER_HOST` | HTTP request concurrency per host (0=unlimited)       | `0`                            | `16`                        |
+| Key                         | Description                                           | Example                        | Default                                             |
+|-----------------------------|-------------------------------------------------------|--------------------------------|-----------------------------------------------------|
+| `T_PROXY`                   | Proxy used to connect to the Telegram API [^3]        | `socks5://172.17.0.1:1080`     |                                                     |
+| `R_PROXY`                   | Proxy used to fetch feeds [^3]                        | `socks5://172.17.0.1:1080`     |                                                     |
+| `PROXY_BYPASS_PRIVATE`      | Bypass proxy for private IPs or not?                  | `1`                            | `0`                                                 |
+| `PROXY_BYPASS_DOMAINS`      | Bypass proxy for listed domains                       | `example.com;example.net` [^1] |                                                     |
+| `USER_AGENT`                | User-Agent                                            | `Mozilla/5.0`                  | `RSStT/$VERSION RSS Reader (+https://git.io/RSStT)` |
+| `IPV6_PRIOR`                | Enforce fetching feeds over IPv6 firstly or not? [^4] | `1`                            | `0`                                                 |
+| `VERIFY_TLS`                | Verify TLS certificate or not?                        | `0`                            | `1`                                                 |
+| `TRAFFIC_SAVING`            | Enable network traffic saving mode or not? [^5]       | `1`                            | `0`                                                 |
+| `LAZY_MEDIA_VALIDATION`     | Let Telegram DC to validate media or not? [^6]        | `1`                            | `0`                                                 |
+| `HTTP_TIMEOUT`              | HTTP request timeout in seconds                       | `60`                           | `12`                                                |
+| `HTTP_CONCURRENCY`          | HTTP request concurrency overall (0=unlimited)        | `0`                            | `1024`                                              |
+| `HTTP_CONCURRENCY_PER_HOST` | HTTP request concurrency per host (0=unlimited)       | `0`                            | `16`                                                |
 
 ### Misc settings
 
-| Key                           | Description                                                                 | Example                                       | Default                                        |
-|-------------------------------|-----------------------------------------------------------------------------|-----------------------------------------------|------------------------------------------------|
-| `ERROR_LOGGING_CHAT`          | Chat (user/channel/group) ID for error logging.                             | `-1001234567890`                              | The first user ID in `MANAGER`                 |
-| `MULTIUSER`                   | Enable multi-user feature or not?                                           | `0`                                           | `1`                                            |
-| `CRON_SECOND`                 | Run the feed monitoring task at the n-th second of each minute? (0-59)      | `30`                                          | `0`                                            |
+| Key                           | Description                                                                 | Example                                       | Default                                         |
+|-------------------------------|-----------------------------------------------------------------------------|-----------------------------------------------|-------------------------------------------------|
+| `ERROR_LOGGING_CHAT`          | Chat (user/channel/group) ID for error logging.                             | `-1001234567890`                              | The first user ID in `MANAGER`                  |
+| `MULTIUSER`                   | Enable multi-user feature or not?                                           | `0`                                           | `1`                                             |
+| `CRON_SECOND`                 | Run the feed monitoring task at the n-th second of each minute? (0-59)      | `30`                                          | `0`                                             |
 | `IMG_RELAY_SERVER`            | Media relay server (https://github.com/Rongronggg9/rsstt-img-relay) URL     | `https://wsrv.nl/?url=`                       | `https://rsstt-img-relay.rongrong.workers.dev/` |
-| `IMAGES_WESERV_NL`            | https://github.com/weserv/images instance                                   | `https://t0.nl/`                              | `https://wsrv.nl/`                             |
-| `DATABASE_URL`                | Database URL [^7]                                                           | `postgres://user:pass@example.com:5432/table` | `sqlite:/path/to/config/db.sqlite3`            |
-| `TABLE_TO_IMAGE`              | Convert tables to image (causing higher CPU load) or just drop them?        | `1`                                           | `0`                                            |
-| `MANAGER_PRIVILEGED`          | Allow the bot manager to manipulate any users' subscriptions or not? [^8]   | `1`                                           | `0`                                            |
-| `NO_UVLOOP`                   | Never enable `uvloop` (even if it is found) or not?                         | `1`                                           | `0`                                            |
-| `MULTIPROCESSING`             | Enable multiprocessing (up to `min(3, CPU_COUNT)`) or not? [^9]             | `1`                                           | `0`                                            |
-| `EXECUTOR_NICENESS_INCREMENT` | The niceness increment of subprocesses (if `MULTIPROCESSING=1`) and threads | `5`                                           | `2`                                            |
-| `DEBUG`                       | Enable debug logging or not?                                                | `1`                                           | `0`                                            |
+| `IMAGES_WESERV_NL`            | https://github.com/weserv/images instance                                   | `https://t0.nl/`                              | `https://wsrv.nl/`                              |
+| `DATABASE_URL`                | Database URL [^7]                                                           | `postgres://user:pass@example.com:5432/table` | `sqlite:/path/to/config/db.sqlite3`             |
+| `TABLE_TO_IMAGE`              | Convert tables to image (causing higher CPU load) or just drop them?        | `1`                                           | `0`                                             |
+| `MANAGER_PRIVILEGED`          | Allow the bot manager to manipulate any users' subscriptions or not? [^8]   | `1`                                           | `0`                                             |
+| `NO_UVLOOP`                   | Never enable `uvloop` (even if it is found) or not?                         | `1`                                           | `0`                                             |
+| `MULTIPROCESSING`             | Enable multiprocessing (up to `min(3, CPU_COUNT)`) or not? [^9]             | `1`                                           | `0`                                             |
+| `EXECUTOR_NICENESS_INCREMENT` | The niceness increment of subprocesses (if `MULTIPROCESSING=1`) and threads | `5`                                           | `2`                                             |
+| `DEBUG`                       | Enable debug logging or not?                                                | `1`                                           | `0`                                             |
 
 ## Manager options
 

@@ -1,6 +1,49 @@
 # Changelog
 
-## v2.7.0: #Hashtags from post, Python 3.12 support, and more
+## Unreleased
+
+### Enhancements
+
+- **No longer proxies images from `*.wp.com` when generating Telegraph posts**: `*.wp.com` is in the blocklist of `wsrv.nl` (environment variable `IMAGES_WESERV_NL`). Thus, these images are no longer proxied when generating Telegraph posts. All images from `*.wp.com` can be accessed with any referer header, so they are now kept as is.
+- **Minor refactor**: Some internal functions have been refactored to improve performance, readability and maintainability.
+
+### Bug fixes
+
+- **Canonical `DATABASE_URL` not recognized**: Since v2.9.0, `DATABASE_URL` is canonicalized before connecting to the corresponding database. However, a canonical URL pointing to a local path cannot be recognized when checking the validity of the scheme (database type). Both canonical (`scheme:/path/to/file.db`) and traditional (`scheme:///path/to/file.db`) forms of such URLs are recognized correctly now.
+- **Monitoring not deferred as per server-side cache when subscribing**: Since v2.7.0, monitoring tasks will be deferred when aggressive server-side caches (e.g., Cloudflare and RSSHub, which make it futile to check for updates before cache expiration) are detected. However, the first monitoring task for a newly subscribed feed was not being deferred. This has been fixed and the first monitoring task now waits for the server-side cache to expire.
+
+## v2.9.0: Telegraph-related revert, skip cert verification, and more
+
+### BREAKING CHANGES
+
+Media (image and video) are no longer uploaded when generating Telegraph posts due to [Telegraph disabling media upload](https://t.me/durov/343). (first introduced in v2.6.0)
+
+### Addition
+
+- **Disable TLS certificate verification**: The environment variable `VERIFY_TLS` has been added to disable (when set to `0`) or enable (when set to `1`, default) TLS certificate verification. This is useful when subscribing to feeds with their TLS misconfigured. Note: Disabling TLS certificate verification is not recommended and should only be used as a last resort.
+
+### Enhancements
+
+- **Sanitize post title and author**: The title and author of a post (RSS item or Atom entry) are now sanitized to prevent unexpected formatting issues. In particular, unexpected whitespaces and linebreaks are removed, and any HTML elements are stripped. This helps display them correctly in Telegram messages as well as Telegraph posts.
+- **Improve robustness on Railway.app**: Some Railway-specific environment variables are recognized to improve robustness on Railway.app. In particular, `DATABASE_PRIVATE_URL` and `DATABASE_PUBLIC_URL` will be used when `DATABASE_URL` is unavailable or invalid. This should solve most database connection issues on Railway.app.
+- **Minor refactor**: Some internal functions have been refactored to improve readability and maintainability.
+
+### Bug fixes
+
+- **`/version` not working**: When installed from PyPI (e.g. `pip install rsstt`), the `/version` command might cause an error. This was a regression introduced in v2.7.0.
+- **Bot managers can set monitoring intervals shorter than limit**: Due to the breaking change introduced in v2.8.0, the privilege of bot managers to set intervals shorter than the minimal monitoring interval became useless. While v2.8.0 only applied this limitation when monitoring the updates of feeds, this release also applies it to the attempts by bot managers to change the monitoring interval for a subscription. Note: bot managers can always lower the minimal monitoring interval by adjusting `minimal_interval` in `/set_option` (see also [Advanced Settings](advanced-settings.md)), but doing so will also permit anyone who is able to use the bot to set shorter intervals.
+- **Minor bug fixes**
+
+## v2.8.0: Retain post order, rewritten monitor, and more
+
+### BREAKING CHANGES
+
+- **Minimal monitoring interval is enforced**: The minimal monitoring interval (`minimal_interval` in `/set_option`) is now applied to all subscriptions regardless of their interval set in the database. Previously, setting a minimal monitoring interval would only affect future attempts to change the monitoring interval for a subscription and would not be applied to bot managers. As a result, pre-existing subscriptions and subscriptions of bot managers escaped. The new behavior is more consistent and predictable. If you are a bot manager of a self-hosted instance and rely on the old behavior that bot managers were able to set shorter intervals than the minimal monitoring interval, you probably need to adjust `minimal_interval` in `/set_option` (see also [Advanced Settings](advanced-settings.md)).
+
+### Highlights
+
+- **Retain post order**: Retain the order of posts in a feed when sending them. Previously, all new posts were sent simultaneously, losing their order within the feed. Note: Posts from different feeds are still sent simultaneously, so it is expected to see them interlaced.
+- **Rewritten monitor**: The feed monitor has been rewritten for flexibility and robustness. It is now more memory-efficient and can smooth out spikes in CPU usage.
 
 ### Enhancements
 
