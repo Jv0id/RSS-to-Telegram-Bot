@@ -15,7 +15,7 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from __future__ import annotations
-from typing import Optional, Sequence, Union, Final, Iterable
+from typing import Optional, Sequence, Union, Final, Iterable, Iterator
 
 import re
 import string
@@ -27,7 +27,7 @@ from emoji import emojize
 from telethon.tl.types import TypeMessageEntity
 from functools import partial
 from urllib.parse import urljoin
-from itertools import chain
+from itertools import chain, count, groupby
 
 from .weibo_emojify_map import EMOJIFY_MAP
 from .. import log
@@ -94,23 +94,80 @@ INVALID_CHARACTERS: Final[str] = (
     '\u2028'  # LINE SEPARATOR
     '\u2029'  # PARAGRAPH SEPARATOR
 )
-CHARACTERS_TO_ESCAPE_IN_HASHTAG: Final[str] = ''.join(
-    # all characters here will be replaced with '_'
-    sorted(set(SPACES + INVALID_CHARACTERS + string.punctuation + string.whitespace))
+INVALID_CHARACTERS_IN_HASHTAG: Final[str] = ''.join(
+    sorted(
+        # Known characters that break hashtags.
+        set(chain(
+            SPACES, INVALID_CHARACTERS, string.punctuation, string.whitespace,
+            '・',  # Though '・' breaks hashtags, it is not the case of '·'.
+        ))
+        # Characters included in `string.punctuation` but valid in hashtags.
+        - set(
+            '@'  # Used in "chat-specific hashtags".
+        )
+    )
 )
+
+escapeSpecialCharInReSet = partial(
+    re.compile(r'([\\\-\[\]])').sub,  # \-[]
+    r'\\\1',
+)
+
+
+def __merge_chars_into_ranged_set(sorted_chars: str) -> str:
+    monotonic: Iterator[int] = count()
+    groups: Iterator[str] = (
+        ''.join(g)
+        for _, g in groupby(sorted_chars, key=lambda char: ord(char) - next(monotonic))
+    )
+    ranged_set: str = ''.join(
+        f'{escapeSpecialCharInReSet(g[0])}-{escapeSpecialCharInReSet(g[-1])}'
+        # Merging 0~1 chars results in an invalid set, while merging two chars is meaningless.
+        if len(g) > 2
+        else escapeSpecialCharInReSet(g)
+        for g in groups
+    )
+    assert re.fullmatch(rf'[{ranged_set}]+', sorted_chars)
+    return ranged_set
+
 
 # false positive:
 # noinspection RegExpUnnecessaryNonCapturingGroup
 EMOJIFY_RE: Final[re.Pattern] = re.compile(rf'\[(?:{"|".join(re.escape(phrase[1:-1]) for phrase in EMOJIFY_MAP)})]')
-emojifyReSub = partial(EMOJIFY_RE.sub, lambda match: EMOJIFY_MAP[match.group(0)])
+emojifyReSub = partial(
+    EMOJIFY_RE.sub,
+    lambda match: EMOJIFY_MAP[match.group(0)],
+)
 
-replaceInvalidCharacter = partial(re.compile(rf'[{INVALID_CHARACTERS}]').sub, ' ')  # use initially
-replaceSpecialSpace = partial(re.compile(rf'[{SPACES[1:]}]').sub, ' ')  # use carefully
-stripBr = partial(re.compile(r'\s*<br\s*/?\s*>\s*').sub, '<br>')
-stripLineEnd = partial(re.compile(rf'[{SPACES}]+\n').sub, '\n')  # use firstly
-stripNewline = partial(re.compile(r'\n{3,}').sub, '\n\n')  # use secondly
-stripAnySpace = partial(re.compile(r'\s+').sub, ' ')
-escapeHashtag = partial(re.compile(rf'[{CHARACTERS_TO_ESCAPE_IN_HASHTAG}]+').sub, '_')
+replaceInvalidCharacter = partial(
+    re.compile(rf'[{__merge_chars_into_ranged_set(INVALID_CHARACTERS)}]').sub,
+    ' ',
+)  # use initially
+
+replaceSpecialSpace = partial(
+    re.compile(rf'[{__merge_chars_into_ranged_set(SPACES[1:])}]').sub,
+    ' ',
+)  # use carefully
+stripBr = partial(
+    re.compile(r'\s*<br\s*/?\s*>\s*').sub,
+    '<br>',
+)
+stripLineEnd = partial(
+    re.compile(rf'[{__merge_chars_into_ranged_set(SPACES)}]+\n').sub,
+    '\n',
+)  # use firstly
+stripNewline = partial(
+    re.compile(r'\n{3,}').sub,
+    '\n\n',
+)  # use secondly
+stripAnySpace = partial(
+    re.compile(r'\s+').sub,
+    ' ',
+)
+escapeHashtag = partial(
+    re.compile(rf'[{__merge_chars_into_ranged_set(INVALID_CHARACTERS_IN_HASHTAG)}]+').sub,
+    '_',
+)
 isAbsoluteHttpLink = re.compile(r'^https?://').match
 isSmallIcon = re.compile(r'(width|height): ?(([012]?\d|30)(\.\d)?px|([01](\.\d)?|2)r?em)').search
 
@@ -347,4 +404,4 @@ def escape_hashtags(tags: Optional[Iterable[str]]) -> Iterable[str]:
 
 
 def merge_tags(*tag_lists: Optional[Iterable[str]]) -> list[str]:
-    return list(dict.fromkeys(chain(*tag_lists)))
+    return list(dict.fromkeys(chain.from_iterable(tag_lists)))

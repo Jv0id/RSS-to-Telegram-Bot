@@ -4,13 +4,13 @@
         "iso_639_code": "de",
         "language_name": "German",
         "lang_native_name": "Deutsch",
-        "select_lang_prompt": "Bitte wählen Sie eine Sprache.",
+        "select_lang_prompt": "Bitte wähle eine Sprache.",
         "welcome_prompt": "Willkommen zu RSS to Telegram Bot.",
         "rsstt_slogan": "RSS to Telegram Bot, ein Telegram RSS bot, dem deine Leseerfahrung wichtig ist."
     },
     "l10n_sub_status": {
         "no_subscription": "Du hast keine Abonnements",
-        "already_subscribed": "Bereits abboniert",
+        "already_subscribed": "Bereits abonniert",
         "subscription_not_exist": "Abonnement existiert nicht"
     },
     "l10n_error_reasons": {
