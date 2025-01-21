@@ -1,3 +1,19 @@
+#  RSS to Telegram Bot
+#  Copyright (C) 2021-2024  Rongrong <i@rong.moe>
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as
+#  published by the Free Software Foundation, either version 3 of the
+#  License, or (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+#
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 from __future__ import annotations
 from typing import Optional, Sequence, Union, Final, Iterable, Iterator
 
@@ -242,8 +258,8 @@ async def parse_entry(entry, feed_link: Optional[str] = None):
         enclosures: list[Enclosure] = None
 
     content = (
-            entry.get('content')  # Atom
-            or entry.get('summary', '')  # Atom summary or RSS description
+            entry.get('content')  # Atom: <content>; JSON Feed: .content_html, .content_text
+            or entry.get('summary', '')  # Atom: <summary>; RSS: <description>
     )
 
     if isinstance(content, list) and len(content) > 0:  # Atom
@@ -254,6 +270,9 @@ async def parse_entry(entry, feed_link: Optional[str] = None):
                 break
         else:
             content = content[0]
+        content = content.get('value', '')
+    elif isinstance(content, dict):  # JSON Feed
+        # TODO: currently feedparser always prefer content_text rather than content_html, we'd like to change that
         content = content.get('value', '')
 
     EntryParsed.content = await html_validator(content)

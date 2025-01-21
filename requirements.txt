@@ -9,11 +9,11 @@ listparser[lxml]==0.20
 pillow==11.0.0
 beautifulsoup4==4.12.3
 lxml==5.3.0
-rapidfuzz==3.10.1
+rapidfuzz==3.11.0
 emoji==2.14.0
 minify-html==0.15.0
 minify-html-onepass==0.15.0
-matplotlib==3.10.0
+matplotlib==3.9.3
 
 # db
 asyncpg==0.30.0
@@ -21,7 +21,7 @@ tortoise-orm[accel]==0.22.2
 aerich==0.8.0
 
 # network
-aiohttp[speedups]==3.11.10
+aiohttp[speedups]==3.11.11
 aiohttp-socks==0.9.1
 aiohttp-retry==2.9.1
 python-socks[asyncio]==2.5.3
